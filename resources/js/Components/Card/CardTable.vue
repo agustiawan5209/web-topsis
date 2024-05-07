@@ -205,6 +205,10 @@ function truncateText(text) {
                     </div>
                     <div class=" w-full overflow-x-auto ">
                         <table class="w-full divide-y divide-gray-200">
+                            <colgroup>
+                            <col v-for="item in columsReplace">
+                            <col class="w-32">
+                            </colgroup>
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" v-for="item in columsReplace"
@@ -235,7 +239,7 @@ function truncateText(text) {
                                     <td class="px-2 py-1 md:px-6 md:py-3 whitespace-nowrap text-end text-sm font-medium"
                                         v-if="cekAksi()">
                                         <!-- Settings Dropdown -->
-                                        <div class="ml-3 relative">
+                                        <div class="ml-3">
                                             <Dropdown align="top" width="48">
                                                 <template #trigger>
                                                     <span class="inline-flex rounded-md">
