@@ -43,11 +43,12 @@ class KriteriaController extends Controller
     {
         $data = $request->all();
 
-        $arr = collect($request->nama);
-        $bobot = collect($request->bobot);
+        $arr = $request->nama;
+        $bobot = $request->bobot;
+
         for ($i=0; $i < count($arr); $i++) {
             if(isset($arr[$i]) && isset($bobot[$i])){
-                Kriteria::created([
+                Kriteria::create([
                     'nama'=> $arr[$i],
                     'bobot'=> $bobot[$i],
                 ]);

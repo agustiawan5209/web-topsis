@@ -61,7 +61,7 @@ function ArrayToString(){
                 </NavLink>
             </li>
             <li >
-                <NavLink :href="route('Kriteria.index')" :active="route().current('Kriteria.index')" :icon="['fas', 'users']">
+                <NavLink :href="route('Kriteria.index')" :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.show') || route().current('Kriteria.edit')" :icon="['fas', 'users']">
 
                     <span class="-mr-1 font-medium">Kriteria</span>
                 </NavLink>
