@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+use App\Models\Kriteria;
 use App\Models\Alternatif;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreAlternatifRequest;
 use App\Http\Requests\UpdateAlternatifRequest;
 
@@ -13,7 +17,15 @@ class AlternatifController extends Controller
      */
     public function index()
     {
+        $tableName = 'alternatif'; // Ganti dengan nama tabel yang Anda inginkan
+        $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+
         //
+        return Inertia::render('Admin/Alternatif/Index', [
+            'search' =>  Request::input('search'),
+            'table_colums'=> array_values(array_diff($columns, ['remember_token','password', 'email_verified_at', 'created_at', 'updated_at'])),
+            'data'=> Alternatif::filter(Request::only('search','order'))->paginate(10),
+        ]);
     }
 
     /**
@@ -21,7 +33,10 @@ class AlternatifController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admin/Alternatif/Form', [
+            'kriteria'=> Kriteria::with(['sub_kriteria'])->get(),
+        ]);
+
     }
 
     /**
@@ -29,7 +44,8 @@ class AlternatifController extends Controller
      */
     public function store(StoreAlternatifRequest $request)
     {
-        //
+
+        return redirect()->route('Alternatif.index')->with('message', 'Data Alternatif Berhasil Di Tambah!!');
     }
 
     /**
@@ -37,7 +53,10 @@ class AlternatifController extends Controller
      */
     public function show(Alternatif $alternatif)
     {
-        //
+        return Inertia::render('Admin/Alternatif/Show', [
+            'alternatif'=> $alternatif->with(['penilaians'])->find(Request::input('slug')),
+        ]);
+
     }
 
     /**
@@ -45,7 +64,9 @@ class AlternatifController extends Controller
      */
     public function edit(Alternatif $alternatif)
     {
-        //
+        return Inertia::render('Admin/Alternatif/Edit', [
+            'alternatif'=> $alternatif->with(['penilaians'])->find(Request::input('slug')),
+        ]);
     }
 
     /**
@@ -53,7 +74,7 @@ class AlternatifController extends Controller
      */
     public function update(UpdateAlternatifRequest $request, Alternatif $alternatif)
     {
-        //
+        return redirect()->route('Alternatif.index')->with('message', 'Data Alternatif Berhasil Di Edit!!');
     }
 
     /**
@@ -61,6 +82,9 @@ class AlternatifController extends Controller
      */
     public function destroy(Alternatif $alternatif)
     {
-        //
+        $alternatif = $alternatif->with(['penilaians'])->find(Request::input('slug'));
+        $alternatif->delete();
+
+        return redirect()->route('Alternatif.index')->with('message', 'Data Alternatif Berhasil Di Hapus!!');
     }
 }

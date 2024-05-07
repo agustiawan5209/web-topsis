@@ -17,4 +17,14 @@ class Alternatif extends Model
     public function penilaians(){
         return $this->hasMany(Penilaian::class, 'alternatif_id', 'id');
     }
+
+     //  FIlter Data User
+     public function scopeFilter($query, $filter)
+     {
+         $query->when($filter['search'] ?? null, function ($query,$search)  {
+             $query->where('nama', 'like', '%' . $search . '%');
+         })->when($filter['order'] ?? null, function ($query,$order)  {
+             $query->orderBy('id', $order);
+         });
+     }
 }
