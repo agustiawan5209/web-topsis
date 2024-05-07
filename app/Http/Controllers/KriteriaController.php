@@ -69,7 +69,7 @@ class KriteriaController extends Controller
     public function show(Kriteria $kriteria)
     {
         return Inertia::render('Admin/Kriteria/Show',[
-            'kriteria'=> $kriteria->find(Request::input('slug')),
+            'kriteria'=> $kriteria->with(['subKriteria'])->find(Request::input('slug')),
         ]);
     }
 
