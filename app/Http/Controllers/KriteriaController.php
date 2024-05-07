@@ -79,7 +79,7 @@ class KriteriaController extends Controller
     public function edit(Kriteria $kriteria)
     {
         return Inertia::render('Admin/Kriteria/Edit',[
-            'kriteria'=> $kriteria->find(Request::input('slug')),
+            'kriteria'=> $kriteria->with(['subKriteria'])->find(Request::input('slug')),
         ]);
     }
 
@@ -90,6 +90,21 @@ class KriteriaController extends Controller
     {
         $kriteria = $kriteria->find(Request::input('slug'));
         $kriteria->update($request->all());
+
+        $arr = $request->namasubkriteria;
+        $bobot = $request->bobotsubkriteria;
+
+        $subKriteria = SubKriteria::where('kriteria_id', $kriteria->id)->delete();
+
+        for ($i=0; $i < count($arr); $i++) {
+            if(isset($arr[$i]) && isset($bobot[$i])){
+                SubKriteria::create([
+                    'kriteria_id'=> $kriteria->id,
+                    'nama'=> $arr[$i],
+                    'bobot'=> $bobot[$i],
+                ]);
+            }
+        }
         return redirect()->route('Kriteria.index')->with('message', 'Data Kriteria Berhasil Di Edit!!');
 
     }

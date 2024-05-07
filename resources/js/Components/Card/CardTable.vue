@@ -26,6 +26,8 @@ onMounted(() => {
             text: page.props.message,
             showConfirmButton: true,
             timer: 2000
+        }).then(()=>{
+            page.props.message = null;
         });
     }
 })

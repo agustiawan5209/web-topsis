@@ -28,7 +28,7 @@ const props = defineProps({
 })
 const crud = ref({
     tambah: true,
-    edit: false,
+    edit: true,
     show: true,
     delete: true,
     reset_password: false,
