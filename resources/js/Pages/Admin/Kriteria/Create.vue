@@ -21,7 +21,21 @@ function addJmlKriteria() {
     }
 }
 
+
+const NamaSubKriteria = ref([])
+const BobotSubKriteria = ref([])
+function sliceObject(item){
+    JmlKriteria.value -=1;
+
+    NamaSubKriteria.value.splice(item,1);
+    BobotSubKriteria.value.splice(item,1);
+}
+
+
+// Submit
 function submit() {
+    Form.namasubkriteria = NamaSubKriteria.value;
+    Form.bobotsubkriteria = BobotSubKriteria.value;
     Form.post(route('Kriteria.store'), {
         preserveScroll: true,
         preserveState: true,
@@ -63,22 +77,27 @@ function submit() {
                         <div class="">
                             <h3 class="col-span-full mb-2">Sub Kriteria {{ index }} </h3>
                             <!-- Nama Sub Kriteria -->
-                            <div class="grid grid-cols-2 gap-5 ">
-                                <div class="">
+                            <div class="grid grid-cols-7 place-content-center items-center gap-5 ">
+                                <div class="col-span-3">
                                     <InputLabel for="namasubkriteria" :value="'Nama sub kriteria'"
                                         class="text-xs sm:text-sm leading-4 tracking-wider" />
                                     <input id="namasubkriteria" name="namasubkriteria" type="text"
                                         placeholder="Nama sub kriteria"
                                         class="border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs"
-                                        v-model="Form.namasubkriteria[item]" />
+                                        v-model="NamaSubKriteria[item]" />
                                 </div>
                                 <!-- Bobot Sub Kriteria -->
-                                <div>
+                                <div class="col-span-3">
                                     <InputLabel for="bobotsubkriteria" :value="'Bobot Sub Kriteria'"
                                         class="text-xs sm:text-sm leading-4 tracking-wider" />
                                     <input id="bobotsubkriteria" name="bobotsubkriteria" type="number" placeholder="Jumlah Bobot Sub Kriteria"
                                         class="border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs"
-                                        v-model="Form.bobotsubkriteria[item]" />
+                                        v-model="BobotSubKriteria[item]" />
+                                </div>
+                                <div class="col-span-1">
+                                    <PrimaryButton type="button" @click="sliceObject(item)">
+                                        <font-awesome-icon :icon="['fas', 'xmark']" class="text-white"/>
+                                    </PrimaryButton>
                                 </div>
                             </div>
                         </div>

@@ -30,7 +30,7 @@ const crud = ref({
     tambah: true,
     edit: false,
     show: false,
-    delete: false,
+    delete: true,
     reset_password: false,
 
 })
