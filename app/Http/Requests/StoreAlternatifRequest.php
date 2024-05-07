@@ -11,7 +11,7 @@ class StoreAlternatifRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreAlternatifRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama_alternatif'=> 'required|string|max:50',
+            'penilaian'=> 'required|array',
+            'penilaian.*.kriteria'=> 'required|exists:kriteria,id',
+            'penilaian.*.nilai'=> 'required|numeric',
         ];
     }
 }
