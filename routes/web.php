@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AlternatifController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\JadwalImunisasiController;
 use App\Http\Controllers\PegawaiPosyanduController;
@@ -62,6 +63,18 @@ Route::middleware(['auth', 'verified', 'role:Admin|Pengguna'])->group(function (
             Route::post('/store-kriteria', 'store')->name('store');
             Route::put('/update-kriteria', 'update')->name('update');
             Route::delete('/destroy-kriteria', 'destroy')->name('destroy');
+        });
+    });
+    // Route Alternatif
+    Route::group(['prefix' => 'Alternatif', 'as' => "Alternatif."], function () {
+        Route::controller(AlternatifController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-alternatif', 'create')->name('create');
+            Route::get('/ubah-alternatif', 'edit')->name('edit');
+            Route::get('/detail-alternatif', 'show')->name('show');
+            Route::post('/store-alternatif', 'store')->name('store');
+            Route::put('/update-alternatif', 'update')->name('update');
+            Route::delete('/destroy-alternatif', 'destroy')->name('destroy');
         });
     });
 });
