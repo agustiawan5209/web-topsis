@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreKriteriaRequest;
 use App\Http\Requests\UpdateKriteriaRequest;
+use App\Models\SubKriteria;
 
 class KriteriaController extends Controller
 {
@@ -43,12 +44,16 @@ class KriteriaController extends Controller
     {
         $data = $request->all();
 
-        $arr = $request->nama;
-        $bobot = $request->bobot;
+        $arr = $request->namasubkriteria;
+        $bobot = $request->bobotsubkriteria;
 
+        $kriteria = Kriteria::create([
+            'nama'=> $request->namakriteria,
+        ]);
         for ($i=0; $i < count($arr); $i++) {
             if(isset($arr[$i]) && isset($bobot[$i])){
-                Kriteria::create([
+                SubKriteria::create([
+                    'kriteria_id'=> $kriteria->id,
                     'nama'=> $arr[$i],
                     'bobot'=> $bobot[$i],
                 ]);

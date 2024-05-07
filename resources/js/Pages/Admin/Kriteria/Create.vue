@@ -8,8 +8,9 @@ import TextInput from '@/Components/TextInput.vue';
 import { ref, watch, defineProps } from 'vue';
 
 const Form = useForm({
-    nama: [],
-    bobot: [],
+    namakriteria: '',
+    namasubkriteria: [],
+    bobotsubkriteria: [],
 });
 
 const JmlKriteria = ref(1);
@@ -39,27 +40,48 @@ function submit() {
         </template>
 
         <div class="py-4 relative box-content flex justify-center">
-            <form @submit.prevent="submit()" class="max-w-xl p-5 shadow-sm border border-primary rounded-lg">
-                <PrimaryButton type="button" class="mb-4" @click="addJmlKriteria()">Tambah Kriteria++</PrimaryButton>
+            <form @submit.prevent="submit()" class="max-w-full p-2 sm:p-5 shadow-sm border border-primary rounded-lg">
+                <PrimaryButton type="button" class="mb-4" @click="addJmlKriteria()">Tambah Sub Kriteria++</PrimaryButton>
                 <template v-if="Form.hasErrors">
                     <ul v-for="item in Form.errors" class="mb-3">
-                        <li class="flex items-center gap-4 text-sm pb-2 border-b text-red-500"> <font-awesome-icon :icon="['fas', 'bug']"/> <span>{{ item }}</span> </li>
+                        <li class="flex items-center gap-4 text-sm pb-2 border-b text-red-500"> <font-awesome-icon
+                                :icon="['fas', 'bug']" /> <span>{{ item }}</span> </li>
                     </ul>
                 </template>
-                <div class="grid grid-cols-2 gap-2 mb-8 border-b border-spacing-12" v-for="(index, item) in JmlKriteria"
-                    :key="item">
-                    <div class="">
-                        <InputLabel for="nama" :value="'Nama Kriteria ' + (index)"
-                            class="text-[15px] leading-4 tracking-wider" />
-                        <input id="nama" name="nama" type="text" placeholder="Nama Kriteria"
-                            class="border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm"
-                            v-model="Form.nama[item]" />
+                <div class="grid grid-cols-4 gap-2 space-y-2">
+                    <!-- Kriteria -->
+                    <div class="col-span-full">
+                        <InputLabel for="namakriteria" :value="'Nama Kriteria '"
+                            class="text-xs sm:text-[15px]" />
+                        <input id="namakriteria" name="namakriteria" type="text" placeholder="namakriteria Kriteria"
+                            class="border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base"
+                            v-model="Form.namakriteria" />
                     </div>
-                    <div>
-                        <InputLabel for="bobot" :value="'Bobot Kriteria ' + (index)" class="text-[15px] leading-4 tracking-wider" />
-                        <input id="bobot" name="bobot" type="number" placeholder="Jumlah Bobot Kriteria"
-                            class="border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm"
-                            v-model="Form.bobot[item]" />
+                    <!-- Subkriteria -->
+                    <div class="col-span-full bg-gray-100 p-2 border-b border-spacing-12"
+                        v-for="(index, item) in JmlKriteria" :key="item">
+                        <div class="">
+                            <h3 class="col-span-full mb-2">Sub Kriteria {{ index }} </h3>
+                            <!-- Nama Sub Kriteria -->
+                            <div class="grid grid-cols-2 gap-5 ">
+                                <div class="">
+                                    <InputLabel for="namasubkriteria" :value="'Nama sub kriteria'"
+                                        class="text-xs sm:text-sm leading-4 tracking-wider" />
+                                    <input id="namasubkriteria" name="namasubkriteria" type="text"
+                                        placeholder="Nama sub kriteria"
+                                        class="border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs"
+                                        v-model="Form.namasubkriteria[item]" />
+                                </div>
+                                <!-- Bobot Sub Kriteria -->
+                                <div>
+                                    <InputLabel for="bobotsubkriteria" :value="'Bobot Sub Kriteria'"
+                                        class="text-xs sm:text-sm leading-4 tracking-wider" />
+                                    <input id="bobotsubkriteria" name="bobotsubkriteria" type="number" placeholder="Jumlah Bobot Sub Kriteria"
+                                        class="border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs"
+                                        v-model="Form.bobotsubkriteria[item]" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <hr class="border-2 mt-10 mb-2 border-orange-300">

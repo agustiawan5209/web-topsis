@@ -22,10 +22,11 @@ class StoreKriteriaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nama"=> 'required|array',
-            "nama.*"=> 'required|string|max:50',
-            'bobot'=> 'required|array',
-            'bobot.*'=> 'required|numeric',
+            'namakriteria'=> 'required|string|max:50',
+            "namasubkriteria"=> 'required|array',
+            "namasubkriteria.*"=> 'required|string|max:50',
+            'bobotsubkriteria'=> 'required|array',
+            'bobotsubkriteria.*'=> 'required|numeric',
         ];
     }
 }
