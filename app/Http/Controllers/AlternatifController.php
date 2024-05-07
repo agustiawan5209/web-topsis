@@ -33,7 +33,7 @@ class AlternatifController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Alternatif/Form', [
+        return Inertia::render('Admin/Alternatif/Create', [
             'kriteria'=> Kriteria::with(['sub_kriteria'])->get(),
         ]);
 
