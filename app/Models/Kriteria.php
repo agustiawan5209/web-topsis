@@ -14,6 +14,9 @@ class Kriteria extends Model
         'nama',
     ];
 
+    public function subKriteria(){
+        return $this->hasMany(SubKriteria::class, 'kriteria_id','id');
+    }
 
      //  FIlter Data User
      public function scopeFilter($query, $filter)
