@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('penilaians', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('kriteria_id')->constrained('kriterias')->onDelete('cascade');
+            $table->foreignId('alternatif_id')->constrained('alternatifs')->onDelete('cascade');
+            $table->integer('nilai');
             $table->timestamps();
         });
     }
