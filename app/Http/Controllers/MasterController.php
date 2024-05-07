@@ -19,7 +19,7 @@ class MasterController extends Controller
         return Inertia::render('Master/Index', [
             'search' =>  Request::input('search'),
             'table_colums'=> array_values(array_diff($columns, ['remember_token','password', 'email_verified_at', 'created_at', 'updated_at'])),
-            'data'=> User::filter(Request::input('search'))->role('Pengguna')->paginate(10),
+            'data'=> User::filter(Request::only('search','order'))->role('Pengguna')->paginate(10),
         ]);
     }
 }

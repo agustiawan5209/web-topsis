@@ -299,11 +299,11 @@ function truncateText(text) {
                         <div class="flex flex-wrap">
                             <template v-for="(link, key) in TableData.links">
                                 <div v-if="link.url === null" :key="key"
-                                    class="mb-1 mr-1 px-4 py-3 text-gray-400 text-sm leading-4 border rounded"
+                                    class="mb-1 mr-1 px-4 py-3  text-gray-400 text-sm leading-4 border rounded"
                                     v-html="link.label" />
                                 <Link v-else :key="`link-${key}`"
-                                    class="mb-1 mr-1 px-4 py-3 focus:text-indigo-500 text-sm leading-4 active:border-blue-400 hover:bg-gray-200 border focus:border-indigo-500 rounded"
-                                    :class="{ 'bg-white border-blue-500 text-black': link.active }" preserve-state
+                                    class="mb-1 mr-1 px-4 py-3 focus:text-primary text-sm leading-4 active:border-primary hover:bg-red-200 border focus:border-primary rounded"
+                                    :class="{ 'bg-white border-secondary text-black': link.active }" preserve-state
                                     preserve-scroll :data="{ search, slug, order }" :href="link.url"
                                     v-html="link.label" />
                             </template>

@@ -53,11 +53,13 @@ class User extends Authenticatable
     ];
 
     //  FIlter Data User
-    public function scopeFilter($query, $search)
+    public function scopeFilter($query, $filter)
     {
-        $query->when($search ?? null, function ($query) use ($search) {
+        $query->when($filter['search'] ?? null, function ($query,$search)  {
             $query->where('name', 'like', '%' . $search . '%')
                 ->orWhere('username', 'like', '%' . $search . '%');
+        })->when($filter['order'] ?? null, function ($query,$order)  {
+            $query->orderBy('id', $order);
         });
     }
 }
