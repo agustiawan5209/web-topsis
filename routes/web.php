@@ -1,18 +1,19 @@
 <?php
 
-use App\Http\Controllers\BalitaController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\JadwalImunisasiController;
-use App\Http\Controllers\MasterController;
-use App\Http\Controllers\OrangTuaController;
-use App\Http\Controllers\PDFController;
-use App\Http\Controllers\PegawaiPosyanduController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RiwayatImunisasiController;
-use App\Http\Controllers\SertifikatController;
-use App\Http\Controllers\SettingPuskesmasController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BalitaController;
+use App\Http\Controllers\MasterController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\OrangTuaController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SertifikatController;
+use App\Http\Controllers\JadwalImunisasiController;
+use App\Http\Controllers\PegawaiPosyanduController;
+use App\Http\Controllers\RiwayatImunisasiController;
+use App\Http\Controllers\SettingPuskesmasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,10 +46,22 @@ require __DIR__ . '/auth.php';
 Route::middleware(['auth', 'verified', 'role:Admin|Pengguna'])->group(function () {
 
 
-    // Route Setting Puskesma
+    // Route Master
     Route::group(['prefix' => 'Master', 'as' => "Master."], function () {
         Route::controller(MasterController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+        });
+    });
+    // Route Kriteria
+    Route::group(['prefix' => 'Kriteria', 'as' => "Kriteria."], function () {
+        Route::controller(KriteriaController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-kriteria', 'create')->name('create');
+            Route::get('/ubah-kriteria', 'edit')->name('edit');
+            Route::get('/detail-kriteria', 'show')->name('show');
+            Route::post('/store-kriteria', 'store')->name('store');
+            Route::put('/update-kriteria', 'update')->name('update');
+            Route::delete('/destroy-kriteria', 'destroy')->name('destroy');
         });
     });
 });

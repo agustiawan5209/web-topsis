@@ -60,6 +60,12 @@ function ArrayToString(){
                     <span class="-mr-1 font-medium">Master</span>
                 </NavLink>
             </li>
+            <li >
+                <NavLink :href="route('Kriteria.index')" :active="route().current('Kriteria.index')" :icon="['fas', 'users']">
+
+                    <span class="-mr-1 font-medium">Kriteria</span>
+                </NavLink>
+            </li>
 
 
         </ul>
