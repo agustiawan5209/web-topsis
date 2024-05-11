@@ -11,7 +11,7 @@ class UpdateAlternatifRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateAlternatifRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'slug'=> 'required|exists:alternatifs,id',
+            'nama'=> 'required|string|max:50',
+            'penilaian'=> 'required|array',
+            'penilaian.*.kriteria'=> 'required|exists:kriterias,id',
+            'penilaian.*.nilai'=> 'required|numeric',
         ];
     }
 }

@@ -11,11 +11,15 @@ const props = defineProps({
     kriteria: {
         type: Object,
         default: () => ({})
+    },
+    alternatif: {
+        type: Object,
+        default: () => ({})
     }
 })
-console.log(props.kriteria)
 const Form = useForm({
-    nama: '',
+    slug: props.alternatif.id,
+    nama: props.alternatif.nama,
     penilaian: [],
 });
 
@@ -28,9 +32,11 @@ const BobotPenilaian = ref([])
 onMounted(() => {
     for (let i = 0; i < Kriteria.value.length; i++) {
         const element = Kriteria.value[i];
+        const penilaian = props.alternatif.penilaians;
+
         BobotPenilaian.value[i] = {
             kriteria: element.id,
-            nilai: null,
+            nilai: penilaian[i].nilai,
         };
     }
 })
@@ -40,7 +46,7 @@ onMounted(() => {
 // Submit
 function submit() {
     Form.penilaian = BobotPenilaian.value;
-    Form.post(route('Alternatif.store'), {
+    Form.put(route('Alternatif.update'), {
         preserveScroll: true,
         preserveState: true,
         onError: err => console.log(err),
@@ -50,11 +56,11 @@ function submit() {
 
 <template>
 
-    <Head title="Tambah Alternatif" />
+    <Head title="Edit Alternatif" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Tambah Data Alternatif</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit Data Alternatif</h2>
         </template>
 
         <div class="py-4 relative box-content flex justify-center">
@@ -86,7 +92,7 @@ function submit() {
                     </div>
                 </div>
                 <hr class="border-2 mt-10 mb-2 border-orange-300">
-                <p> {{ BobotPenilaian }} </p>
+
                 <PrimaryButton class="block w-full">Simpan</PrimaryButton>
             </form>
         </div>

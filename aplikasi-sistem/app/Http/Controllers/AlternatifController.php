@@ -70,6 +70,7 @@ class AlternatifController extends Controller
     {
         return Inertia::render('Admin/Alternatif/Show', [
             'alternatif'=> $alternatif->with(['penilaians'])->find(Request::input('slug')),
+            'kriteria'=> Kriteria::with(['subKriteria'])->get(),
         ]);
 
     }
@@ -81,6 +82,8 @@ class AlternatifController extends Controller
     {
         return Inertia::render('Admin/Alternatif/Edit', [
             'alternatif'=> $alternatif->with(['penilaians'])->find(Request::input('slug')),
+            'kriteria'=> Kriteria::with(['subKriteria'])->get(),
+
         ]);
     }
 
@@ -89,6 +92,23 @@ class AlternatifController extends Controller
      */
     public function update(UpdateAlternatifRequest $request, Alternatif $alternatif)
     {
+        $alternatif = Alternatif::find($request->slug)->update([
+            'nama'=> $request->nama,
+            'detail'=> null,
+        ]);
+
+        Penilaian::where('alternatif_id', '=', $request->slug)->delete();
+        for($i = 0; $i < count($request->penilaian); $i++){
+            $element = $request->penilaian[$i];
+
+            if(isset($element)){
+                Penilaian::create([
+                    'alternatif_id'=> $request->slug,
+                    'kriteria_id'=>  $element['kriteria'],
+                    'nilai'=>  $element['nilai'],
+                ]);
+            }
+        }
         return redirect()->route('Alternatif.index')->with('message', 'Data Alternatif Berhasil Di Edit!!');
     }
 
