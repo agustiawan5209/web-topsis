@@ -56,7 +56,7 @@ const props = defineProps({
                                         <td class="text-sm border-b py-2 font-bold capitalize whitespace-nowrap">{{ item.kriteria.nama }}</td>
                                         <td>=</td>
                                         <td class="text-sm border-b text-gray-600">
-                                            {{ item.nilai }}
+                                            {{ item.nama }}
                                         </td>
                                     </tr>
                                 </table>
