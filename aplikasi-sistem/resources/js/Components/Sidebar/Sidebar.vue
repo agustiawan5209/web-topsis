@@ -78,6 +78,14 @@ function ArrayToString() {
                     <span class="-mr-1 font-medium">Alternatif</span>
                 </NavLink>
             </li>
+            <li>
+                <NavLink :href="route('Topsis.index')"
+                    :active="route().current('Topsis.index')"
+                    :icon="['fas', 'circle-info']">
+
+                    <span class="-mr-1 font-medium">Penilaian</span>
+                </NavLink>
+            </li>
 
 
         </ul>
