@@ -28,13 +28,13 @@ const props = defineProps({
 })
 const crud = ref({
     tambah: true,
-    edit: true,
-    show: true,
-    delete: true,
+    edit: false,
+    show: false,
+    delete: false,
     reset_password: false,
 
 })
-
+console.log(props.data)
 </script>
 
 <template>
@@ -43,11 +43,11 @@ const crud = ref({
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Data Kriteria</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Data Alternatif</h2>
         </template>
 
         <div class="py-4 relative box-content">
-            <CardTable @update:search="search = $event" @update:order="order" :slug="null" path="Kriteria" :TableData="data" :tableColums="table_colums" :crud="crud" />
+            <CardTable @update:search="search = $event" @update:order="order" :slug="null" path="Alternatif" :TableData="data" :tableColums="table_colums" :crud="crud" />
         </div>
     </AuthenticatedLayout>
 </template>

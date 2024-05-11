@@ -14,16 +14,16 @@ const Roles = Page.role;
 function roleToCheck(role) {
     if (Array.isArray(Roles)) {
         return Roles.includes(role)
-    }else{
+    } else {
         return false;
     }
 }
 
-function ArrayToString(){
+function ArrayToString() {
     if (Array.isArray(Roles)) {
-        return Roles.reduce((a,b)=>{
+        return Roles.reduce((a, b) => {
 
-            return String(a+ ','+b).toString();
+            return String(a + ',' + b).toString();
         })
     }
 }
@@ -49,21 +49,33 @@ function ArrayToString(){
                 </NavLink>
             </li>
             <li v-if="roleToCheck('Pengguna')">
-                <NavLink :href="route('dashboard.pengguna')" :active="route().current('dashboard.pengguna')" :icon="['fas', 'home']">
+                <NavLink :href="route('dashboard.pengguna')" :active="route().current('dashboard.pengguna')"
+                    :icon="['fas', 'home']">
 
                     <span class="-mr-1 font-medium">Dashboard</span>
                 </NavLink>
             </li>
-            <li >
-                <NavLink :href="route('Master.index')" :active="route().current('Master.index')" :icon="['fas', 'users']">
+            <li>
+                <NavLink :href="route('Master.index')" :active="route().current('Master.index')"
+                    :icon="['fas', 'users']">
 
                     <span class="-mr-1 font-medium">Master</span>
                 </NavLink>
             </li>
-            <li >
-                <NavLink :href="route('Kriteria.index')" :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.show') || route().current('Kriteria.edit')" :icon="['fas', 'users']">
+            <li>
+                <NavLink :href="route('Kriteria.index')"
+                    :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.show') || route().current('Kriteria.edit')"
+                    :icon="['fas', 'clipboard']">
 
                     <span class="-mr-1 font-medium">Kriteria</span>
+                </NavLink>
+            </li>
+            <li>
+                <NavLink :href="route('Alternatif.index')"
+                    :active="route().current('Alternatif.index') || route().current('Alternatif.create') || route().current('Alternatif.show') || route().current('Alternatif.edit')"
+                    :icon="['fas', 'circle-info']">
+
+                    <span class="-mr-1 font-medium">Alternatif</span>
                 </NavLink>
             </li>
 

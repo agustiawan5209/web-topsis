@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreAlternatifRequest;
 use App\Http\Requests\UpdateAlternatifRequest;
+use App\Models\Penilaian;
 
 class AlternatifController extends Controller
 {
@@ -17,13 +18,13 @@ class AlternatifController extends Controller
      */
     public function index()
     {
-        $tableName = 'alternatif'; // Ganti dengan nama tabel yang Anda inginkan
+        $tableName = 'alternatifs'; // Ganti dengan nama tabel yang Anda inginkan
         $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
 
         //
         return Inertia::render('Admin/Alternatif/Index', [
             'search' =>  Request::input('search'),
-            'table_colums'=> array_values(array_diff($columns, ['remember_token','password', 'email_verified_at', 'created_at', 'updated_at'])),
+            'table_colums'=> array_values(array_diff($columns, ['remember_token','password','detail', 'email_verified_at', 'created_at', 'updated_at'])),
             'data'=> Alternatif::filter(Request::only('search','order'))->paginate(10),
         ]);
     }
@@ -34,7 +35,7 @@ class AlternatifController extends Controller
     public function create()
     {
         return Inertia::render('Admin/Alternatif/Create', [
-            'kriteria'=> Kriteria::with(['sub_kriteria'])->get(),
+            'kriteria'=> Kriteria::with(['subKriteria'])->get(),
         ]);
 
     }
@@ -44,7 +45,21 @@ class AlternatifController extends Controller
      */
     public function store(StoreAlternatifRequest $request)
     {
+        $alternatif = Alternatif::create([
+            'nama'=> $request->nama,
+            'detail'=> null,
+        ]);
 
+        for($i = 0; $i < count($request->penilaian); $i++){
+            $element = $request->penilaian[$i];
+            if(isset($element)){
+                Penilaian::create([
+                    'alternatif_id'=> $alternatif->id,
+                    'kriteria_id'=>  $element['kriteria'],
+                    'nilai'=>  $element['nilai'],
+                ]);
+            }
+        }
         return redirect()->route('Alternatif.index')->with('message', 'Data Alternatif Berhasil Di Tambah!!');
     }
 
