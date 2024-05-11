@@ -30,6 +30,7 @@ onMounted(() => {
         const element = Kriteria.value[i];
         BobotPenilaian.value[i] = {
             kriteria: element.id,
+            nama: null,
             nilai: null,
         };
     }
@@ -58,7 +59,7 @@ function submit() {
         </template>
 
         <div class="py-4 relative box-content flex justify-center">
-            <form @submit.prevent="submit()" class="max-w-full p-2 sm:p-5 shadow-sm border border-primary rounded-lg">
+            <form @submit.prevent="submit()" class="w-full p-2 lg:p-5 shadow-sm border border-primary rounded-lg">
                 <template v-if="Form.hasErrors">
                     <ul v-for="item in Form.errors" class="mb-3">
                         <li class="flex items-center gap-4 text-sm pb-2 border-b text-red-500"> <font-awesome-icon
@@ -80,7 +81,7 @@ function submit() {
                                 class="text-xs sm:text-sm leading-4 tracking-wider" />
                             <select name="penilaian" id="penilaian" class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs" v-model="BobotPenilaian[index]">
                                 <option value="">--Pilih---</option>
-                                <option v-for="col in item.sub_kriteria" :value="{kriteria: item.id, nilai: col.bobot}"> {{ col.nama }} </option>
+                                <option v-for="col in item.sub_kriteria" :value="{kriteria: item.id, nama:col.nama, nilai: col.bobot}"> {{ col.nama }} </option>
                             </select>
                         </div>
                     </div>

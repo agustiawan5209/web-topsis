@@ -13,6 +13,7 @@ class Penilaian extends Model
     protected $fillable = [
         'kriteria_id',
         'alternatif_id',
+        'nama',
         'nilai',
     ];
 

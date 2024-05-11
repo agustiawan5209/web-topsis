@@ -36,6 +36,7 @@ onMounted(() => {
 
         BobotPenilaian.value[i] = {
             kriteria: element.id,
+            nama: penilaian[i].nama,
             nilai: penilaian[i].nilai,
         };
     }
@@ -86,7 +87,7 @@ function submit() {
                                 class="text-xs sm:text-sm leading-4 tracking-wider" />
                             <select name="penilaian" id="penilaian" class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs" v-model="BobotPenilaian[index]">
                                 <option value="">--Pilih---</option>
-                                <option v-for="col in item.sub_kriteria" :value="{kriteria: item.id, nilai: col.bobot}"> {{ col.nama }} </option>
+                                <option v-for="col in item.sub_kriteria" :value="{kriteria: item.id, nama:col.nama, nilai: col.bobot}"> {{ col.nama }} </option>
                             </select>
                         </div>
                     </div>

@@ -57,6 +57,7 @@ class AlternatifController extends Controller
                     'alternatif_id'=> $alternatif->id,
                     'kriteria_id'=>  $element['kriteria'],
                     'nilai'=>  $element['nilai'],
+                    'nama'=>  $element['nama'],
                 ]);
             }
         }
@@ -106,6 +107,8 @@ class AlternatifController extends Controller
                     'alternatif_id'=> $request->slug,
                     'kriteria_id'=>  $element['kriteria'],
                     'nilai'=>  $element['nilai'],
+                    'nama'=>  $element['nama'],
+
                 ]);
             }
         }
