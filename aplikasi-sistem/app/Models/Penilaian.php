@@ -15,4 +15,8 @@ class Penilaian extends Model
         'alternatif_id',
         'nilai',
     ];
+
+    public function kriteria(){
+        return $this->hasOne(Kriteria::class, 'id', 'kriteria_id');
+    }
 }

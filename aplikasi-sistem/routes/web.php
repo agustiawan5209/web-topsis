@@ -13,6 +13,7 @@ use App\Http\Controllers\AlternatifController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\JadwalImunisasiController;
 use App\Http\Controllers\PegawaiPosyanduController;
+use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\RiwayatImunisasiController;
 use App\Http\Controllers\SettingPuskesmasController;
 
@@ -75,6 +76,11 @@ Route::middleware(['auth', 'verified', 'role:Admin|Pengguna'])->group(function (
             Route::post('/store-alternatif', 'store')->name('store');
             Route::put('/update-alternatif', 'update')->name('update');
             Route::delete('/destroy-alternatif', 'destroy')->name('destroy');
+        });
+    });
+    Route::group(['prefix' => 'Topsis', 'as' => "Topsis."], function () {
+        Route::controller(PenilaianController::class)->group(function () {
+            Route::get('/hasil', 'index')->name('index');
         });
     });
 });
