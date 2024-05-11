@@ -19,11 +19,11 @@ const props = defineProps({
 
 <template>
 
-    <Head title="Dashboard" />
+    <Head title="Topsis" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Data Pengguna</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Hasil Metode Topsis</h2>
         </template>
 
         <div class="py-4 relative box-content">
