@@ -69,7 +69,7 @@ class AlternatifController extends Controller
     public function show(Alternatif $alternatif)
     {
         return Inertia::render('Admin/Alternatif/Show', [
-            'alternatif'=> $alternatif->with(['penilaians'])->find(Request::input('slug')),
+            'alternatif'=> $alternatif->with(['penilaians', "penilaians.kriteria"])->find(Request::input('slug')),
             'kriteria'=> Kriteria::with(['subKriteria'])->get(),
         ]);
 
