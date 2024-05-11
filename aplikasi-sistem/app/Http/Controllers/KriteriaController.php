@@ -49,6 +49,7 @@ class KriteriaController extends Controller
 
         $kriteria = Kriteria::create([
             'nama'=> $request->namakriteria,
+            'bobot'=> $request->bobot,
         ]);
         for ($i=0; $i < count($arr); $i++) {
             if(isset($arr[$i]) && isset($bobot[$i])){

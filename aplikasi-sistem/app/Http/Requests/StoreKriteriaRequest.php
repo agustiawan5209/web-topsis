@@ -24,6 +24,7 @@ class StoreKriteriaRequest extends FormRequest
         return [
             'namakriteria'=> 'required|string|max:50',
             "namasubkriteria"=> 'required|array',
+            'bobot'=> 'required|numeric|max:10',
             "namasubkriteria.*"=> 'required|string|max:50',
             'bobotsubkriteria'=> 'required|array',
             'bobotsubkriteria.*'=> 'required|numeric',

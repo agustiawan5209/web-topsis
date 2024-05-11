@@ -16,6 +16,7 @@ const props = defineProps({
 const Form = useForm({
     slug : props.kriteria.id,
     namakriteria: props.kriteria.nama,
+    bobot: props.kriteria.bobot,
     namasubkriteria: [],
     bobotsubkriteria: [],
 });
@@ -84,11 +85,19 @@ function submit() {
                 </template>
                 <div class="grid grid-cols-4 gap-2 space-y-2">
                     <!-- Kriteria -->
-                    <div class="col-span-full">
-                        <InputLabel for="namakriteria" :value="'Nama Kriteria '" class="text-xs sm:text-[15px]" />
+                    <div class="col-span-2">
+                        <InputLabel for="namakriteria" :value="'Nama Kriteria '"
+                            class="text-xs sm:text-[15px]" />
                         <input id="namakriteria" name="namakriteria" type="text" placeholder="namakriteria Kriteria"
                             class="border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base"
                             v-model="Form.namakriteria" />
+                    </div>
+                    <div class="col-span-2">
+                        <InputLabel for="bobot" :value="'Bobot Kriteria '"
+                            class="text-xs sm:text-[15px]" />
+                        <input id="bobot" name="bobot" type="number" placeholder="bobot Kriteria"
+                            class="border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base"
+                            v-model="Form.bobot" />
                     </div>
                     <!-- Subkriteria -->
                     <div class="col-span-full bg-gray-100 p-2 border-b border-spacing-12"

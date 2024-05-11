@@ -24,6 +24,7 @@ class UpdateKriteriaRequest extends FormRequest
         return [
             'slug'=> 'required|exists:kriterias,id',
             'namakriteria'=> 'required|string|max:50',
+            'bobot'=> 'required|numeric|max:10',
             "namasubkriteria"=> 'required|array',
             "namasubkriteria.*"=> 'required|string|max:50',
             'bobotsubkriteria'=> 'required|array',

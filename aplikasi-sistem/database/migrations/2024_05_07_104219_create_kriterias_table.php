@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kriterias', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 50);
+            $table->string('bobot', 50);
             $table->timestamps();
         });
     }

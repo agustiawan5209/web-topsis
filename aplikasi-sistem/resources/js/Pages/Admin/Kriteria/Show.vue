@@ -48,6 +48,9 @@ const props = defineProps({
                                         <td class="text-sm border-b py-2 font-bold capitalize">Nama Kriteria</td>
                                         <td>:</td>
                                         <td class="text-base border-b text-gray-600"> {{ kriteria.nama }} </td>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Bobot Kriteria</td>
+                                        <td>:</td>
+                                        <td class="text-base border-b text-gray-600"> {{ kriteria.bobot }} </td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" class="border-b-2 pt-10">Data Sub Kriteria Nama Dan Bobot</td>
