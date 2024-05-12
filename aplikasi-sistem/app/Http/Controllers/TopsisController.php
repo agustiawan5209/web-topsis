@@ -7,16 +7,35 @@ use Illuminate\Http\Request;
 class TopsisController extends Controller
 {
     private $alternatives;
+    private $alternativespow;
     private $criteria;
     private $weights;
     private $idealSolution;
     private $antiIdealSolution;
+    private $normalizedMatrix;
+    private $WeightedNormalizedMatrix;
+    private $relativeCloseness;
+    private $separationMeasures;
 
     public function __construct($alternatives, $criteria, $weights)
     {
+        foreach ($alternatives as $key => $alternative) {
+            $alternative = array_map(function ($value) {
+                if (is_integer($value)) {
+                    return pow($value, 2);
+                } else {
+                    return $value;
+                }
+            }, $alternative);
+            $this->alternativespow[$key] = $alternative;
+        }
         $this->alternatives = $alternatives;
         $this->criteria = $criteria;
         $this->weights = $weights;
+        $this->normalizedMatrix = array();
+        $this->WeightedNormalizedMatrix = array();
+        $this->relativeCloseness = array();
+        $this->separationMeasures = array();
     }
 
     public function calculate()
@@ -46,15 +65,18 @@ class TopsisController extends Controller
         $normalizedMatrix = array();
         foreach ($this->alternatives as $alternative) {
             $row = array();
-            foreach ($this->criteria as $criterion) {
+            foreach ($this->criteria as $key => $criterion) {
                 $value = $alternative[$criterion];
-                $maxValue = max(array_column($this->alternatives, $criterion));
-                $minValue = min(array_column($this->alternatives, $criterion));
-                $normalizedValue = ($value - $minValue) / ($maxValue - $minValue);
+                $maxValue = array_sum(array_column($this->alternativespow, $criterion));
+                $normalizedValue = round($value / sqrt($maxValue),5);
+                // if ($key == 2) {
+                //     dd(array_column($this->alternatives, $criterion), sqrt($maxValue), $normalizedValue, $value);
+                // }
                 $row[] = $normalizedValue;
             }
             $normalizedMatrix[] = $row;
         }
+        $this->normalizedMatrix = $normalizedMatrix;
         return $normalizedMatrix;
     }
 
@@ -64,11 +86,12 @@ class TopsisController extends Controller
         foreach ($normalizedMatrix as $row) {
             $weightedRow = array();
             foreach ($row as $i => $value) {
-                $weightedValue = $value * $this->weights[$i];
+                $weightedValue = round($value * $this->weights[$i],5);
                 $weightedRow[] = $weightedValue;
             }
             $weightedNormalizedMatrix[] = $weightedRow;
         }
+        $this->WeightedNormalizedMatrix = $weightedNormalizedMatrix;
         return $weightedNormalizedMatrix;
     }
 
@@ -106,6 +129,7 @@ class TopsisController extends Controller
             $distanceToAntiIdeal = sqrt($distanceToAntiIdeal);
             $separationMeasures[] = array($distanceToIdeal, $distanceToAntiIdeal);
         }
+        $this->separationMeasures = $separationMeasures;
         return $separationMeasures;
     }
 
@@ -117,6 +141,7 @@ class TopsisController extends Controller
             $distanceToAntiIdeal = $separationMeasure[1];
             $relativeCloseness[] = $distanceToAntiIdeal / ($distanceToIdeal + $distanceToAntiIdeal);
         }
+        $this->relativeCloseness = $relativeCloseness;
         return $relativeCloseness;
     }
 
@@ -124,9 +149,21 @@ class TopsisController extends Controller
     {
         $rankedAlternatives = array();
         foreach ($relativeCloseness as $i => $closeness) {
-            $rankedAlternatives[$this->alternatives[$i]['name']] = $closeness;
+            $rankedAlternatives[$this->alternatives[$i]['nama']] = $closeness;
         }
         arsort($rankedAlternatives);
-        return $rankedAlternatives;
+        return [
+            'rank'=> $rankedAlternatives,
+            'alternative'=> $this->alternatives,
+            'alternative_square'=> $this->alternativespow,
+            'idealSolution'=> $this->idealSolution,
+            'antiIdealSolution'=> $this->antiIdealSolution,
+            'criteria'=> $this->criteria,
+            'weights'=> $this->weights,
+            'normalizedMatrix'=> $this->normalizedMatrix,
+            'WeightedNormalizedMatrix'=> $this->WeightedNormalizedMatrix,
+            'separationMeasures'=> $this->separationMeasures,
+            'relativeCloseness'=> $this->relativeCloseness,
+        ];
     }
 }

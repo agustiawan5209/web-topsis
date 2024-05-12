@@ -13,6 +13,27 @@ use App\Models\Penilaian;
 
 class AlternatifController extends Controller
 {
+
+    public function Topsis()
+    {
+        $alternatif = Alternatif::with(['penilaians', 'penilaians.kriteria'])->get();
+        $kriteria = Kriteria::all();
+
+        $matrix_alternatif = [];
+        $matrix_kriteria = [];
+        $matrix_bobot = [];
+        foreach ($alternatif as $key => $item) {
+            $matrix_alternatif[$key]['nama'] = $item->nama;
+            foreach ($item->penilaians as $col) {
+                $matrix_alternatif[$key][$col->kriteria->nama] = $col->nilai;
+            }
+        }
+        foreach ($kriteria as $key => $item) {
+            $matrix_kriteria[$key] = $item->nama;
+            $matrix_bobot[$key] = $item->bobot;
+        }
+        return [$matrix_alternatif, $matrix_kriteria, $matrix_bobot];
+    }
     /**
      * Display a listing of the resource.
      */
@@ -20,12 +41,19 @@ class AlternatifController extends Controller
     {
         $tableName = 'alternatifs'; // Ganti dengan nama tabel yang Anda inginkan
         $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
+        // $data = $this->Topsis();
+        // for ($i = 0; $i < count($data[1]); $i++) {
+        //     $element = $data[1][$i];
+        //     $columns[] = $element;
+        // }
+
+        // dd($data, $columns);
 
         //
         return Inertia::render('Admin/Alternatif/Index', [
             'search' =>  Request::input('search'),
-            'table_colums'=> array_values(array_diff($columns, ['remember_token','password','detail', 'email_verified_at', 'created_at', 'updated_at'])),
-            'data'=> Alternatif::filter(Request::only('search','order'))->paginate(10),
+            'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'detail', 'email_verified_at', 'created_at', 'updated_at'])),
+            'data' => Alternatif::filter(Request::only('search', 'order'))->paginate(10),
         ]);
     }
 
@@ -35,9 +63,8 @@ class AlternatifController extends Controller
     public function create()
     {
         return Inertia::render('Admin/Alternatif/Create', [
-            'kriteria'=> Kriteria::with(['subKriteria'])->get(),
+            'kriteria' => Kriteria::with(['subKriteria'])->get(),
         ]);
-
     }
 
     /**
@@ -46,18 +73,18 @@ class AlternatifController extends Controller
     public function store(StoreAlternatifRequest $request)
     {
         $alternatif = Alternatif::create([
-            'nama'=> $request->nama,
-            'detail'=> null,
+            'nama' => $request->nama,
+            'detail' => null,
         ]);
 
-        for($i = 0; $i < count($request->penilaian); $i++){
+        for ($i = 0; $i < count($request->penilaian); $i++) {
             $element = $request->penilaian[$i];
-            if(isset($element)){
+            if (isset($element)) {
                 Penilaian::create([
-                    'alternatif_id'=> $alternatif->id,
-                    'kriteria_id'=>  $element['kriteria'],
-                    'nilai'=>  $element['nilai'],
-                    'nama'=>  $element['nama'],
+                    'alternatif_id' => $alternatif->id,
+                    'kriteria_id' =>  $element['kriteria'],
+                    'nilai' =>  $element['nilai'],
+                    'nama' =>  $element['nama'],
                 ]);
             }
         }
@@ -70,10 +97,9 @@ class AlternatifController extends Controller
     public function show(Alternatif $alternatif)
     {
         return Inertia::render('Admin/Alternatif/Show', [
-            'alternatif'=> $alternatif->with(['penilaians', "penilaians.kriteria"])->find(Request::input('slug')),
-            'kriteria'=> Kriteria::with(['subKriteria'])->get(),
+            'alternatif' => $alternatif->with(['penilaians', "penilaians.kriteria"])->find(Request::input('slug')),
+            'kriteria' => Kriteria::with(['subKriteria'])->get(),
         ]);
-
     }
 
     /**
@@ -82,8 +108,8 @@ class AlternatifController extends Controller
     public function edit(Alternatif $alternatif)
     {
         return Inertia::render('Admin/Alternatif/Edit', [
-            'alternatif'=> $alternatif->with(['penilaians'])->find(Request::input('slug')),
-            'kriteria'=> Kriteria::with(['subKriteria'])->get(),
+            'alternatif' => $alternatif->with(['penilaians'])->find(Request::input('slug')),
+            'kriteria' => Kriteria::with(['subKriteria'])->get(),
 
         ]);
     }
@@ -94,20 +120,20 @@ class AlternatifController extends Controller
     public function update(UpdateAlternatifRequest $request, Alternatif $alternatif)
     {
         $alternatif = Alternatif::find($request->slug)->update([
-            'nama'=> $request->nama,
-            'detail'=> null,
+            'nama' => $request->nama,
+            'detail' => null,
         ]);
 
         Penilaian::where('alternatif_id', '=', $request->slug)->delete();
-        for($i = 0; $i < count($request->penilaian); $i++){
+        for ($i = 0; $i < count($request->penilaian); $i++) {
             $element = $request->penilaian[$i];
 
-            if(isset($element)){
+            if (isset($element)) {
                 Penilaian::create([
-                    'alternatif_id'=> $request->slug,
-                    'kriteria_id'=>  $element['kriteria'],
-                    'nilai'=>  $element['nilai'],
-                    'nama'=>  $element['nama'],
+                    'alternatif_id' => $request->slug,
+                    'kriteria_id' =>  $element['kriteria'],
+                    'nilai' =>  $element['nilai'],
+                    'nama' =>  $element['nama'],
 
                 ]);
             }
