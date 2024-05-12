@@ -55,14 +55,14 @@ function ArrayToString() {
                     <span class="-mr-1 font-medium">Dashboard</span>
                 </NavLink>
             </li>
-            <li>
+            <li v-if="roleToCheck('Admin')">
                 <NavLink :href="route('Master.index')" :active="route().current('Master.index')"
                     :icon="['fas', 'users']">
 
                     <span class="-mr-1 font-medium">Master</span>
                 </NavLink>
             </li>
-            <li>
+            <li v-if="roleToCheck('Admin')">
                 <NavLink :href="route('Kriteria.index')"
                     :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.show') || route().current('Kriteria.edit')"
                     :icon="['fas', 'clipboard']">
@@ -78,7 +78,7 @@ function ArrayToString() {
                     <span class="-mr-1 font-medium">Alternatif</span>
                 </NavLink>
             </li>
-            <li>
+            <li v-if="roleToCheck('Admin')">
                 <NavLink :href="route('Topsis.index')"
                     :active="route().current('Topsis.index')"
                     :icon="['fas', 'circle-info']">

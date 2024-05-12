@@ -81,7 +81,7 @@ const Navigate = ref(false);
     </main>
 
     <footer class=" divide-y bg-white border-t shadow-2xl">
-        <div class="py-6 text-sm text-center bg-primary">Web-TOPSIS© {{ Year }}. All rights reserved.</div>
+        <div class="py-6 text-sm text-center bg-gradient-to-tr from-primary to-orange-400">Web-TOPSIS© {{ Year }}. All rights reserved.</div>
     </footer>
 
 </template>

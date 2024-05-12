@@ -26,25 +26,19 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto sm:px-6">
                 <!-- <HeaderStats :pengguna="pengguna" :balita="balita" /> -->
                 <div class="bg-gradient-to-bl from-primary to-orange-300 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="grid grid-cols-1 2xl:grid-cols-2 gap-7 p-2 place-content-end">
-                        <div class=" p-3 flex justify-center items-center relative">
-                            <!-- <div class="w-full absolute bg-center left-1/4 z-0 opacity-45">
-                                <img :src="'/svg/cartoon.svg'" alt="dashboard img" class="w-1/2 object-contain" />
-
-                            </div> -->
-                            <h1
-                                class="w-full mb-5 text-xs sm:text-sm md:text-base lg:text-4xl text-center font-bold !leading-[1.208] text-white z-10">
-                                Selamat Datang Di
-                                <span class="text-base-light">Sistem Informasi </span>
-                                Web-TOPSIS.
-                            </h1>
-
+                    <div class=" p-3 flex justify-center items-center relative">
+                        <div class="w-1/3 bg-center left-1/4 z-0 bg-white rounded-full p-4">
+                            <img :src="'/svg/computer.svg'" alt="dashboard img" class="w-full object-contain" />
 
                         </div>
-                        <div class="relative container">
-                            <h3 class=" text-xs text-white md:text-base lg:text-lg font-semibold text-center">Kalender Jadwal Imunisasi</h3>
-                            <CardCalendar />
-                        </div>
+                        <h1
+                            class="w-full mb-5 text-xs sm:text-sm md:text-base lg:text-4xl text-center font-bold !leading-[1.208] text-white z-10">
+                            Selamat Datang Di
+                            <span class="text-base-light">Sistem Pendukung Keputusan </span>
+                            Web-TOPSIS.
+                        </h1>
+
+
                     </div>
                 </div>
 
