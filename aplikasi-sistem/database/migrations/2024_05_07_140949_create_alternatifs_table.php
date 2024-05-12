@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('alternatifs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('nama', 50);
             $table->longText('detail')->nullable();
             $table->timestamps();

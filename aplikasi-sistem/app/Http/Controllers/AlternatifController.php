@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Request;
 use App\Http\Requests\StoreAlternatifRequest;
 use App\Http\Requests\UpdateAlternatifRequest;
 use App\Models\Penilaian;
+use Illuminate\Support\Facades\Auth;
 
 class AlternatifController extends Controller
 {
@@ -41,18 +42,11 @@ class AlternatifController extends Controller
     {
         $tableName = 'alternatifs'; // Ganti dengan nama tabel yang Anda inginkan
         $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
-        // $data = $this->Topsis();
-        // for ($i = 0; $i < count($data[1]); $i++) {
-        //     $element = $data[1][$i];
-        //     $columns[] = $element;
-        // }
-
-        // dd($data, $columns);
 
         //
         return Inertia::render('Admin/Alternatif/Index', [
             'search' =>  Request::input('search'),
-            'table_colums' => array_values(array_diff($columns, ['remember_token', 'password', 'detail', 'email_verified_at', 'created_at', 'updated_at'])),
+            'table_colums' => array_values(array_diff($columns, ['remember_token', 'user_id', 'password', 'detail', 'email_verified_at', 'created_at', 'updated_at'])),
             'data' => Alternatif::filter(Request::only('search', 'order'))->paginate(10),
         ]);
     }
@@ -74,6 +68,7 @@ class AlternatifController extends Controller
     {
         $alternatif = Alternatif::create([
             'nama' => $request->nama,
+            'user_id' => Auth::user()->id,
             'detail' => null,
         ]);
 

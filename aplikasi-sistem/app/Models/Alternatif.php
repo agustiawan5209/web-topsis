@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Alternatif extends Model
 {
@@ -11,6 +12,7 @@ class Alternatif extends Model
 
     protected $table = 'alternatifs';
     protected $fillable = [
+        'user_id',
         'nama',
     ];
 
@@ -25,6 +27,8 @@ class Alternatif extends Model
              $query->where('nama', 'like', '%' . $search . '%');
          })->when($filter['order'] ?? null, function ($query,$order)  {
              $query->orderBy('id', $order);
+         })->when(Auth::check(), function($query){
+            $query->where('user_id', Auth::user()->id);
          });
      }
 }
