@@ -67,7 +67,7 @@ function ArrayToString() {
                     :active="route().current('Kriteria.index') || route().current('Kriteria.create') || route().current('Kriteria.show') || route().current('Kriteria.edit')"
                     :icon="['fas', 'clipboard']">
 
-                    <span class="-mr-1 font-medium">Kriteria</span>
+                    <span class="-mr-1 font-medium">Kriteria Lahan Usaha</span>
                 </NavLink>
             </li>
             <li>
@@ -75,7 +75,7 @@ function ArrayToString() {
                     :active="route().current('Alternatif.index') || route().current('Alternatif.create') || route().current('Alternatif.show') || route().current('Alternatif.edit')"
                     :icon="['fas', 'circle-info']">
 
-                    <span class="-mr-1 font-medium">Alternatif</span>
+                    <span class="-mr-1 font-medium">Jenis Ikan</span>
                 </NavLink>
             </li>
             <li v-if="roleToCheck('Admin')">
@@ -84,6 +84,14 @@ function ArrayToString() {
                     :icon="['fas', 'circle-info']">
 
                     <span class="-mr-1 font-medium">Penilaian</span>
+                </NavLink>
+            </li>
+            <li v-if="roleToCheck('Pengguna')">
+                <NavLink :href="route('Topsis.index.user')"
+                    :active="route().current('Topsis.index.user')"
+                    :icon="['fas', 'folder-open']">
+
+                    <span class="-mr-1 font-medium">Hasil Rekomendasi</span>
                 </NavLink>
             </li>
 

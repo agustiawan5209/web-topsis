@@ -81,6 +81,7 @@ Route::middleware(['auth', 'verified', 'role:Admin|Pengguna'])->group(function (
     Route::group(['prefix' => 'Topsis', 'as' => "Topsis."], function () {
         Route::controller(PenilaianController::class)->group(function () {
             Route::get('/hasil', 'index')->name('index');
+            Route::get('/rekomendasi', 'indexUser')->name('index.user');
         });
     });
 });

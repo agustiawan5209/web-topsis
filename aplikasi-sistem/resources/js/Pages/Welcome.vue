@@ -13,10 +13,6 @@ import { Head, Link } from '@inertiajs/vue3';
       <!-- Hero Section -->
       <Hero />
       <!-- Hero Section -->
-      <!-- Layanan -->
-      <Layanan />
-      <!-- Layanan -->
-
    </HomeLayout>
 </template>
 
