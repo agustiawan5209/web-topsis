@@ -26,7 +26,7 @@ class DashboardController extends Controller
     {
         $role = Auth::user()->getRoleNames()->toArray();
 
-        if(in_array('Admin', $role) || in_array('Kader', $role)){
+        if(in_array('Admin', $role)){
             return redirect()->route('dashboard');
         }
 

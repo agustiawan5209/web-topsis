@@ -57,10 +57,6 @@ const Navigate = ref(false);
                     <a href="#" class="px-6 block mt-4  lg:inline-block font-medium lg:mt-0 text-primary hover:text-gray-700 mr-4">
                         Pasien & Pengunjung
                     </a>
-                    <Link :href="route('Home.jadwal')"
-                        class="px-6 block mt-4 lg:inline-block font-medium lg:mt-0 text-primary hover:text-gray-700 mr-4">
-                    Jadwal
-                    </Link>
                     <a href="#" class="px-6 block mt-4 lg:inline-block font-medium lg:mt-0 text-primary hover:text-gray-700 mr-4">
                         Darurat Hubungi +62-85255814561
                     </a>

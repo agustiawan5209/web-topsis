@@ -36,8 +36,6 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username',
-            'no_telpon' => 'required|string|max:20',
-            'alamat' => 'required|string|max:100',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -48,23 +46,17 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        $role = Role::findByName('Orang Tua');
+        $role = Role::findByName('Pengguna');
         if ($role) {
             $user->assignRole($role); // Assign 'user' role to the user
-            $user->givePermissionTo([
-                'show riwayat',
-                'add balita',
-                'edit balita',
-                'delete balita',
-                'show balita',
-            ]);
+            // $user->givePermissionTo([
+            //     'show riwayat',
+            //     'add balita',
+            //     'edit balita',
+            //     'delete balita',
+            //     'show balita',
+            // ]);
         }
-        OrangTua::create([
-            'user_id' => $user->id,
-            'nama' => $user->name,
-            'no_telpon' => $request->no_telpon,
-            'alamat' => $request->alamat,
-        ]);
 
         event(new Registered($user));
 

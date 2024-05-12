@@ -16,7 +16,7 @@ import { Link } from '@inertiajs/vue3';
                             Obcaecati, quam? Eligendi, nulla numquam natus laborum porro at cum, consectetur ullam
                             tempora ipsa iste officia sed officiis! Incidunt ea animi officiis.
                         </p>
-                        <Link :href="route('Jadwal.index')"
+                        <Link href=""
                             class="relative mx-auto flex h-10 w-10 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-100 before:transition before:duration-300 group-hover:before:scale-125">
                             <span class="text-primary">&rightarrow;</span>
                         </Link>
@@ -31,7 +31,7 @@ import { Link } from '@inertiajs/vue3';
                             tempora ipsa iste officia sed officiis! Incidunt ea animi officiis.
                         </p>
 
-                        <Link :href="route('Balita.index')"
+                        <Link href=""
                             class="relative mx-auto flex h-10 w-10 items-center justify-center before:absolute before:inset-0 before:rounded-full before:border before:border-gray-100 before:transition before:duration-300 group-hover:before:scale-125">
                             <span class="text-primary">&rightarrow;</span>
                         </Link>
