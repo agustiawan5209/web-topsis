@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Balita;
+use App\Models\Kriteria;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,7 @@ class DashboardController extends Controller
     {
         return Inertia::render('Dashboard',[
             'pengguna'=> User::role('Pengguna')->count(),
+            'kriteria'=> Kriteria::all()->count(),
         ]);
     }
 
