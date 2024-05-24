@@ -244,9 +244,9 @@ onMounted(() => {
                                             Total
                                         </th>
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800"
-                                            v-for="(col, idx) in kriteria" :key="col">
-                                            <span>&#8730;</span> {{ SumKriteria[idx].total }} = {{ SumKriteria[idx].sqrt
-                                            }}
+                                            v-for="(col, idx) in kriteria" :key="col" >
+                                            <span v-if="SumKriteria[idx] != [] || SumKriteria[idx] != null">&#8730;  {{ SumKriteria[idx].total }} = {{ SumKriteria[idx].sqrt
+                                            }}</span>
                                         </td>
                                     </tr>
                                 </tbody>
