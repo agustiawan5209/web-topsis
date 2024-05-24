@@ -285,7 +285,7 @@ onMounted(() => {
                                         </td>
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800"
                                             v-for="(col, idx) in topsis.normalizedMatrix[index]" :key="col.id">
-                                            <span> {{ item.penilaians[idx].nilai }} / {{ SumKriteria[idx].sqrt }} ={{
+                                            <span> <i v-if="SumKriteria.length > 0 "> {{ item.penilaians[idx].nilai }} / {{ SumKriteria[idx].sqrt }} =</i> {{
                                                 col
                                                 }}</span>
                                         </td>
