@@ -69,8 +69,8 @@ function submit() {
                 <div class="flex flex-col w-full gap-2 space-y-2">
                     <!-- Alternatif -->
                     <div class="w-full">
-                        <InputLabel for="nama" :value="'Nama Alternatif '" class="text-xs sm:text-[15px]" />
-                        <input id="nama" name="nama" type="text" placeholder="nama Alternatif"
+                        <InputLabel for="nama" :value="'Nama Jenis Ikan '" class="text-xs sm:text-[15px]" />
+                        <input id="nama" name="nama" type="text" placeholder="Nama Jenis Ikan"
                             class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base"
                             v-model="Form.nama" />
                     </div>

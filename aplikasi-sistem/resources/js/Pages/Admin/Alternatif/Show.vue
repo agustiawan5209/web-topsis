@@ -45,7 +45,7 @@ const props = defineProps({
                                     <col>
                                     </colgroup>
                                     <tr class="" >
-                                        <td class="text-sm border-b py-2 font-bold capitalize">Nama alternatif</td>
+                                        <td class="text-sm border-b py-2 font-bold capitalize">Nama Jenis Ikan</td>
                                         <td>:</td>
                                         <td class="text-base border-b text-gray-600"> {{ alternatif.nama }} </td>
                                     </tr>

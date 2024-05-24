@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('kriteria_id')->constrained('kriterias')->onDelete('cascade');
             $table->foreignId('alternatif_id')->constrained('alternatifs')->onDelete('cascade');
             $table->integer('nilai');
+            $table->string('nama',50);
             $table->timestamps();
         });
     }
