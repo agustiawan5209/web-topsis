@@ -52,6 +52,7 @@ function sum(array) {
 if (props.alternatif.length > 2) {
     console.log(props.topsis)
     sum(props.topsis.alternative_square)
+    console.log(SumKriteria.value)
 }
 onMounted(() => {
 })
