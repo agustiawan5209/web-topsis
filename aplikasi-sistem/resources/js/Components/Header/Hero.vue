@@ -19,7 +19,7 @@
                         <rect fill="url(#9ef1ff62-feb2-41fe-8163-772b4c79de7b)" width="52" height="24"></rect>
                     </svg>
                 </span>
-                Temukan Lahan Terbaik untuk Budidaya Ikan Air Tawar dengan Sistem Pendukung Keputusan (SPK) TOPSIS
+                Temukan Lahan Terbaik untuk Budidaya Ikan Air Tawar dengan Prediksi TOPSIS
             </h2>
 
         </div>
