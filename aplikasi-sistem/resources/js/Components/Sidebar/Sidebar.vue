@@ -75,7 +75,7 @@ function ArrayToString() {
                     :active="route().current('Alternatif.index') || route().current('Alternatif.create') || route().current('Alternatif.show') || route().current('Alternatif.edit')"
                     :icon="['fas', 'circle-info']">
 
-                    <span class="-mr-1 font-medium">Jenis Ikan</span>
+                    <span class="-mr-1 font-medium">Input Data</span>
                 </NavLink>
             </li>
             <li v-if="roleToCheck('Admin')">
