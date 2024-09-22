@@ -59,7 +59,7 @@ function ArrayToString() {
                 <NavLink :href="route('Master.index')" :active="route().current('Master.index')"
                     :icon="['fas', 'users']">
 
-                    <span class="-mr-1 font-medium">Master</span>
+                    <span class="-mr-1 font-medium">Data Pengguna</span>
                 </NavLink>
             </li>
             <li v-if="roleToCheck('Admin')">

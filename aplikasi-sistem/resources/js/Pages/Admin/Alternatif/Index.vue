@@ -6,6 +6,8 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Modal from '@/Components/Modal.vue';
+
+const swal = inject('$swal')
 const props = defineProps({
     search: {
         type: String,
