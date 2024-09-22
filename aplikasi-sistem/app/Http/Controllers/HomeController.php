@@ -20,14 +20,5 @@ class HomeController extends Controller
         ]);
     }
 
-    public function jadwal(){
-        return Inertia::render('Home/JadwalImunisasi',[
-            'jadwal'=> JadwalImunisasi::orderBy('tanggal','desc')->get(),
-        ]);
-    }
-    public function informasi(){
-        return Inertia::render('Home/Informasi',[
-            'puskesmas'=> Puskesmas::find(1),
-        ]);
-    }
+
 }

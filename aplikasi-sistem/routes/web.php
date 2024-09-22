@@ -10,6 +10,7 @@ use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AlternatifController;
+use App\Http\Controllers\DataUjiController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\JadwalImunisasiController;
 use App\Http\Controllers\PegawaiPosyanduController;
@@ -82,6 +83,18 @@ Route::middleware(['auth', 'verified', 'role:Admin|Pengguna'])->group(function (
         Route::controller(PenilaianController::class)->group(function () {
             Route::get('/hasil', 'index')->name('index');
             Route::get('/rekomendasi', 'indexUser')->name('index.user');
+        });
+    });
+
+    Route::group(['prefix' => 'Datauji', 'as' => "Datauji."], function () {
+        Route::controller(DataUjiController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/tambah-data-penilaian', 'create')->name('create');
+            Route::get('/ubah-data-penilaian', 'edit')->name('edit');
+            Route::get('/detail-data-penilaian', 'show')->name('show');
+            Route::post('/store-data-penilaian', 'store')->name('store');
+            Route::put('/update-data-penilaian', 'update')->name('update');
+            Route::delete('/destroy-data-penilaian', 'destroy')->name('destroy');
         });
     });
 });

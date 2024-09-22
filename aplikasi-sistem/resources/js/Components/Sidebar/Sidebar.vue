@@ -94,6 +94,14 @@ function ArrayToString() {
                     <span class="-mr-1 font-medium">Hasil Rekomendasi</span>
                 </NavLink>
             </li>
+            <li >
+                <NavLink :href="route('Datauji.index')"
+                    :active="route().current('Datauji.index')"
+                    :icon="['fas', 'folder-open']">
+
+                    <span class="-mr-1 font-medium">Riwayat Rekomendasi</span>
+                </NavLink>
+            </li>
 
 
         </ul>
