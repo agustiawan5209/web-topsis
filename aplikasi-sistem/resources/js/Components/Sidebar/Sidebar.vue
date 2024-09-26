@@ -99,7 +99,7 @@ function ArrayToString() {
                     :active="route().current('Datauji.index')"
                     :icon="['fas', 'folder-open']">
 
-                    <span class="-mr-1 font-medium">Riwayat Rekomendasi</span>
+                    <span class="-mr-1 font-medium">Inputan User </span>
                 </NavLink>
             </li>
 

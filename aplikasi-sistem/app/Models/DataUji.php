@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +25,18 @@ class DataUji extends Model
         'user'=> 'json',
         'hasil'=> 'json',
     ];
+
+    protected $appends = [
+        'nama_pengguna',
+    ];
+
+    public function namaPengguna():Attribute
+    {
+        return new Attribute(
+            get: fn()=> $this->user['name'],
+            set: null,
+        );
+    }
 
     public function scopeFilterBySearch($query, $search)
     {

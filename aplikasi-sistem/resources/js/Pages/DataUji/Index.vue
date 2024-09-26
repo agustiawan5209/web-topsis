@@ -218,6 +218,7 @@ function submit() {
                             <tr
                                 class="text-xs font-semibold tracking-wide text-left uppercase border-b border-gray-700  text-gray-900 bg-white">
                                 <th class="px-4 py-3">No</th>
+                                <th class="px-4 py-3">Nama Pengguna</th>
                                 <th class="px-4 py-3">Tgl</th>
                                 <th class="px-4 py-3">Hasil</th>
                                 <th scope="col" v-if="cekAksi()"
@@ -231,6 +232,9 @@ function submit() {
                             <tr class="text-gray-900" v-for="(item, index) in penilaian.data">
                                 <td class="px-4 py-3">
                                     {{ (penilaian.current_page - 1) * penilaian.per_page + index + 1 }}
+                                </td>
+                                <td class="px-4 py-3 text-sm">
+                                    {{ item.nama_pengguna }}
                                 </td>
                                 <td class="px-4 py-3 text-sm">
                                     {{ item.tgl_uji }}
