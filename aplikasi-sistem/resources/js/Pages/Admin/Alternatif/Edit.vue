@@ -76,9 +76,13 @@ function submit() {
                     <!-- Alternatif -->
                     <div class="w-full">
                         <InputLabel for="nama" :value="'Nama Jenis Ikan '" class="text-xs sm:text-[15px]" />
-                        <input id="nama" name="nama" type="text" placeholder="Nama Jenis Ikan"
-                            class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base"
-                            v-model="Form.nama" />
+                        <select name="nama" id="nama" v-model="Form.nama" class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base">
+                            <option value="">--------</option>
+                            <option value="Ikan Lele">Ikan Lele</option>
+                            <option value="Ikan Gurame">Ikan Gurame</option>
+                            <option value="Ikan Patin">Ikan Patin</option>
+                            <option value="Ikan Mujair">Ikan Mujair</option>
+                        </select>
                     </div>
                     <!-- Subalternatif -->
                     <div class="grid grid-cols-2 gap-2 bg-gray-100 p-2 border-b border-spacing-12">

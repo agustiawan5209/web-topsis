@@ -68,7 +68,7 @@ class TopsisController extends Controller
             foreach ($this->criteria as $key => $criterion) {
                 $value = $alternative[$criterion];
                 $maxValue = array_sum(array_column($this->alternativespow, $criterion));
-                $normalizedValue = round($value / sqrt($maxValue),5);
+                $normalizedValue = round($value / sqrt($maxValue), 5);
                 // if ($key == 2) {
                 //     dd(array_column($this->alternatives, $criterion), sqrt($maxValue), $normalizedValue, $value);
                 // }
@@ -86,7 +86,7 @@ class TopsisController extends Controller
         foreach ($normalizedMatrix as $row) {
             $weightedRow = array();
             foreach ($row as $i => $value) {
-                $weightedValue = round($value * $this->weights[$i],5);
+                $weightedValue = round($value * $this->weights[$i], 5);
                 $weightedRow[] = $weightedValue;
             }
             $weightedNormalizedMatrix[] = $weightedRow;
@@ -149,21 +149,35 @@ class TopsisController extends Controller
     {
         $rankedAlternatives = array();
         foreach ($relativeCloseness as $i => $closeness) {
-            $rankedAlternatives[$this->alternatives[$i]['nama']] = $closeness;
+            if ($closeness >= 0.8) {
+                $text = "Sangat Layak";
+            } else if ($closeness >= 0.6 && $closeness < 0.8) {
+                $text = "Layak";
+            } else if ($closeness < 0.6) {
+                $text = "Tidak Layak";
+            }
+            $rankedAlternatives[$this->alternatives[$i]['nama']] = [
+                'teks' => $text,
+                'nilai' => $closeness,
+            ];
         }
-        arsort($rankedAlternatives);
+        // Sortir array berdasarkan 'nilai' terbesar
+        uasort($rankedAlternatives, function ($a, $b) {
+            return $b['nilai'] <=> $a['nilai']; // Urutkan dari terbesar ke terkecil
+        });
+
         return [
-            'rank'=> $rankedAlternatives,
-            'alternative'=> $this->alternatives,
-            'alternative_square'=> $this->alternativespow,
-            'idealSolution'=> $this->idealSolution,
-            'antiIdealSolution'=> $this->antiIdealSolution,
-            'criteria'=> $this->criteria,
-            'weights'=> $this->weights,
-            'normalizedMatrix'=> $this->normalizedMatrix,
-            'WeightedNormalizedMatrix'=> $this->WeightedNormalizedMatrix,
-            'separationMeasures'=> $this->separationMeasures,
-            'relativeCloseness'=> $this->relativeCloseness,
+            'rank' => $rankedAlternatives,
+            'alternative' => $this->alternatives,
+            'alternative_square' => $this->alternativespow,
+            'idealSolution' => $this->idealSolution,
+            'antiIdealSolution' => $this->antiIdealSolution,
+            'criteria' => $this->criteria,
+            'weights' => $this->weights,
+            'normalizedMatrix' => $this->normalizedMatrix,
+            'WeightedNormalizedMatrix' => $this->WeightedNormalizedMatrix,
+            'separationMeasures' => $this->separationMeasures,
+            'relativeCloseness' => $this->relativeCloseness,
         ];
     }
 }

@@ -207,6 +207,10 @@ function submit() {
                                         </th>
                                         <th scope="col"
                                             class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
+                                            Keterangan
+                                        </th>
+                                        <th scope="col"
+                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
                                             Ranking
                                         </th>
                                     </tr>
@@ -217,7 +221,10 @@ function submit() {
                                             index }}
                                         </td>
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
-                                            item }}
+                                            item.nilai }}
+                                        </td>
+                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
+                                            item.teks }}
                                         </td>
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
                                             n + 1 }}
