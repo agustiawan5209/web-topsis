@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Kriteria;
 use App\Models\Alternatif;
+use App\Models\DataUji;
 use Illuminate\Support\Facades\Request;
 
 class PenilaianController extends Controller
@@ -57,4 +58,6 @@ class PenilaianController extends Controller
             return [];
         }
     }
+
+
 }

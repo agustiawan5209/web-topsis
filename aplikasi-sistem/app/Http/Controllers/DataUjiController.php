@@ -96,6 +96,7 @@ class DataUjiController extends Controller
      */
     public function destroy(DataUji $dataUji)
     {
-        //
+        $dataUji->find(Request::input('slug'))->delete();
+        return redirect()->route('Datauji.index')->with('message', 'Data Datauji Berhasil Di Hapus!!');
     }
 }
