@@ -48,7 +48,7 @@ class AlternatifController extends Controller
             'search' =>  Request::input('search'),
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'user_id', 'password', 'detail', 'email_verified_at', 'created_at', 'updated_at'])),
             'data' => Alternatif::filter(Request::only('search', 'order'))->with(['penilaians'])->paginate(10),
-            'kriteria'=> Kriteria::all(),
+            'kriteria' => Kriteria::all(),
         ]);
     }
 
@@ -59,6 +59,12 @@ class AlternatifController extends Controller
     {
         return Inertia::render('Admin/Alternatif/Create', [
             'kriteria' => Kriteria::with(['subKriteria'])->get(),
+            'ikan' => [
+                'Ikan Lele',
+                'Ikan Gurame',
+                'Ikan Patin',
+                'Ikan Mujair',
+            ]
         ]);
     }
 
@@ -67,21 +73,30 @@ class AlternatifController extends Controller
      */
     public function store(StoreAlternatifRequest $request)
     {
-        $alternatif = Alternatif::create([
-            'nama' => $request->nama,
-            'user_id' => Auth::user()->id,
-            'detail' => null,
-        ]);
-
-        for ($i = 0; $i < count($request->penilaian); $i++) {
-            $element = $request->penilaian[$i];
-            if (isset($element)) {
-                Penilaian::create([
-                    'alternatif_id' => $alternatif->id,
-                    'kriteria_id' =>  $element['kriteria'],
-                    'nilai' =>  $element['nilai'],
-                    'nama' =>  $element['nama'],
-                ]);
+        $ikan =  [
+            'Ikan Lele',
+            'Ikan Gurame',
+            'Ikan Patin',
+            'Ikan Mujair',
+        ];
+        for ($col = 0; $col < count($ikan); $col++) {
+            $nama = $ikan[$col];
+            $alternatif = Alternatif::create([
+                'nama' => $nama,
+                'user_id' => Auth::user()->id,
+                'detail' => null,
+            ]);
+            // dd(count($request->penilaian[$col]));
+            for ($i = 0; $i < count($request->penilaian[$col]); $i++) {
+                $element = $request->penilaian[$col][$i];
+                if (isset($element)) {
+                    Penilaian::create([
+                        'alternatif_id' => $alternatif->id,
+                        'kriteria_id' =>  $element['kriteria'],
+                        'nilai' =>  $element['nilai'],
+                        'nama' =>  $element['nama'],
+                    ]);
+                }
             }
         }
         return redirect()->route('Alternatif.index')->with('message', 'Data Alternatif Berhasil Di Tambah!!');

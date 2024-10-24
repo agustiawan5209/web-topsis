@@ -22,10 +22,10 @@ class StoreAlternatifRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama'=> 'required|string|max:50',
+            // 'nama'=> 'required|string|max:50',
             'penilaian'=> 'required|array',
-            'penilaian.*.kriteria'=> 'required|exists:kriterias,id',
-            'penilaian.*.nilai'=> 'required|numeric',
+            // 'penilaian.*.kriteria'=> 'required|exists:kriterias,id',
+            // 'penilaian.*.nilai'=> 'required|numeric',
         ];
     }
 }

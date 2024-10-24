@@ -11,9 +11,12 @@ const props = defineProps({
     kriteria: {
         type: Object,
         default: () => ({})
+    },
+    ikan: {
+        type: [Array, Object],
+        default: () => ({})
     }
 })
-console.log(props.kriteria)
 const Form = useForm({
     nama: '',
     penilaian: [],
@@ -25,21 +28,24 @@ const JmlAlternatif = ref(1);
 const Kriteria = ref(props.kriteria);
 const BobotPenilaian = ref([])
 
-onMounted(() => {
+for (let col = 0; col < props.ikan.length; col++) {
+    const item = props.ikan[col];
+    BobotPenilaian.value[col] = []
     for (let i = 0; i < Kriteria.value.length; i++) {
         const element = Kriteria.value[i];
-        BobotPenilaian.value[i] = {
+        BobotPenilaian.value[col][i] = {
             kriteria: element.id,
             nama: null,
             nilai: null,
         };
     }
-})
+}
 
 
 
 // Submit
 function submit() {
+    console.log(BobotPenilaian.value)
     Form.penilaian = BobotPenilaian.value;
     Form.post(route('Alternatif.store'), {
         preserveScroll: true,
@@ -67,28 +73,32 @@ function submit() {
                     </ul>
                 </template>
                 <div class="flex flex-col w-full gap-2 space-y-2">
-                    <!-- Alternatif -->
-                    <div class="w-full">
-                        <InputLabel for="nama" :value="'Nama Jenis Ikan '" class="text-xs sm:text-[15px]" />
-                        <select name="nama" id="nama" v-model="Form.nama" class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base">
-                            <option value="">--------</option>
-                            <option value="Ikan Lele">Ikan Lele</option>
-                            <option value="Ikan Gurame">Ikan Gurame</option>
-                            <option value="Ikan Patin">Ikan Patin</option>
-                            <option value="Ikan Mujair">Ikan Mujair</option>
-                        </select>
-                    </div>
-                    <!-- Subalternatif -->
-                    <div class="grid grid-cols-2 gap-2 bg-gray-100 p-2 border-b border-spacing-12">
-                        <div class="col-span-1 " v-for="(item, index) in kriteria" :key="item.id">
-                            <InputLabel for="penilaian" :value="item.nama"
-                                class="text-xs sm:text-sm leading-4 tracking-wider" />
-                            <select name="penilaian" id="penilaian" class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs" v-model="BobotPenilaian[index]">
-                                <option value="">--Pilih---</option>
-                                <option v-for="col in item.sub_kriteria" :value="{kriteria: item.id, nama:col.nama, nilai: col.bobot}"> {{ col.nama }} </option>
-                            </select>
-                        </div>
-                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="px-2 py-1 border border-gray-600">Jenis Ikan</th>
+                                <th class="px-2 py-1 border border-gray-600" v-for="(item, index) in kriteria"
+                                    :key="item.id">{{
+                                        item.nama }}</th>
+                            </tr>
+                        </thead>
+                        <tbody v-if="BobotPenilaian">
+                            <tr v-for="(col, idx) in ikan" :key="col" :index="idx">
+                                <td class="border border-gray-500 p-2"> {{ col }} </td>
+                                <td class="border border-gray-500 p-2" v-for="(item, index) in kriteria" :key="item.id">
+                                    <select name="penilaian" id="penilaian" required
+                                        class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs"
+                                        v-model="BobotPenilaian[idx][index]">
+                                        <option value="">--Pilih---</option>
+                                        <option v-for="col in item.sub_kriteria"
+                                            :value="{ kriteria: item.id, nama: col.nama, nilai: col.bobot }"> {{ col.nama
+                                            }}
+                                        </option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <hr class="border-2 mt-10 mb-2 border-orange-300">
 
