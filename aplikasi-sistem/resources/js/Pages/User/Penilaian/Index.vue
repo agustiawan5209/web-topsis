@@ -77,7 +77,14 @@ function submit() {
         }
     })
 }
-
+function ikanKeys() {
+    if(props.topsis.rank != null){
+        return Object.keys(props.topsis.rank);
+    }else{
+        return []
+    }
+}
+const ikanRank = ikanKeys()
 </script>
 
 <template>
@@ -90,6 +97,86 @@ function submit() {
         </template>
 
         <div class="py-4 relative box-content" v-if="alternatif.length > 2">
+
+            <!-- Ranking -->
+            <div class="mt-10 overflow-x-auto" v-if="alternatif.length > 2 && kriteria.length > 0">
+                <div class="p-1.5 min-w-full inline-block align-middle">
+                    <div class="border rounded-lg divide-y divide-gray-200">
+                        <div class=" w-full overflow-x-auto ">
+                            <table class="w-full divide-y divide-gray-200">
+                                <caption>
+                                    Tabel Ranking
+                                </caption>
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th scope="col"
+                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
+                                            Alternatif
+                                        </th>
+                                        <th scope="col"
+                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
+                                            Nilai
+                                        </th>
+                                        <th scope="col"
+                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
+                                            Keterangan
+                                        </th>
+                                        <th scope="col"
+                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
+                                            Ranking
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr v-for="(item, index, n) in topsis.rank" :key="item.id">
+                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
+                                            index }}
+                                        </td>
+                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
+                                            item.nilai }}
+                                        </td>
+                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
+                                            item.teks }}
+                                        </td>
+                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
+                                            n + 1 }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"
+                                            class="px-2 py-2 bg-secondary text-sm border text-center font-medium text-gray-50">
+                                            Berdasarkan Hasil Dari Perankingan
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"
+                                            class="px-2 py-2 bg-white text-sm border text-center font-medium text-gray-800">
+                                            Jenis Ikan Terbaik Yang Dapat Dibudidayakan berdasaran kriteria
+                                        </td>
+                                        <td class="px-2 py-2 bg-white text-sm border text-center font-medium text-gray-800">
+                                            {{ ikanRank[0] }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"
+                                            class="px-2 py-2 bg-white text-sm border text-center font-medium text-gray-800">
+                                            Dan Jenis Ikan Yang Kurang Layak untuk Dibudidayakan berdasaran kriteria
+                                        </td>
+                                        <td class="px-2 py-2 bg-white text-sm border text-center font-medium text-gray-800">
+                                            {{ ikanRank.slice(-1)[0] }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="my-4 text-center w-full">
+                                <PrimaryButton type="button" @click="showModal()">Simpan</PrimaryButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class=" overflow-x-auto">
                 <div class="p-1.5 min-w-full inline-block align-middle">
                     <div class="border rounded-lg divide-y divide-gray-200">
@@ -186,60 +273,6 @@ function submit() {
                 </div>
             </div>
 
-            <!-- Ideal Solution -->
-            <div class="mt-10 overflow-x-auto" v-if="alternatif.length > 2 && kriteria.length > 0">
-                <div class="p-1.5 min-w-full inline-block align-middle">
-                    <div class="border rounded-lg divide-y divide-gray-200">
-                        <div class=" w-full overflow-x-auto ">
-                            <table class="w-full divide-y divide-gray-200">
-                                <caption>
-                                    Tabel Ranking
-                                </caption>
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col"
-                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
-                                            Alternatif
-                                        </th>
-                                        <th scope="col"
-                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
-                                            Nilai
-                                        </th>
-                                        <th scope="col"
-                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
-                                            Keterangan
-                                        </th>
-                                        <th scope="col"
-                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
-                                            Ranking
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-200">
-                                    <tr v-for="(item, index, n) in topsis.rank" :key="item.id">
-                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
-                                            index }}
-                                        </td>
-                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
-                                            item.nilai }}
-                                        </td>
-                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
-                                            item.teks }}
-                                        </td>
-                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
-                                            n + 1 }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <div class="my-4 text-center w-full">
-                                <PrimaryButton type="button" @click="showModal()">Simpan</PrimaryButton>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="py-4 relative box-content" v-else>
             <div class="max-w-7xl mx-auto sm:px-6">

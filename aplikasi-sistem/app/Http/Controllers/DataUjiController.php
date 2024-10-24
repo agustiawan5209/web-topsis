@@ -33,7 +33,7 @@ class DataUjiController extends Controller
                 'add' =>  false,
                 'edit' =>  false,
                 'show' =>  false,
-                'delete' =>  false,
+                'delete' =>  true,
                 'reset' =>  false,
 
             ]

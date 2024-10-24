@@ -54,7 +54,13 @@ if (props.alternatif.length > 2) {
     sum(props.topsis.alternative_square)
     console.log(SumKriteria.value)
 }
+
+function ikanKeys() {
+    return Object.keys(props.topsis.rank);
+}
+const ikanRank = ikanKeys()
 onMounted(() => {
+
 })
 </script>
 
@@ -67,6 +73,82 @@ onMounted(() => {
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Hasil Metode Topsis</h2>
         </template>
 
+        <!-- Ideal Rank -->
+        <div class="mt-10 overflow-x-auto" v-if="alternatif.length > 2 && kriteria.length > 0">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+                <div class="border rounded-lg divide-y divide-gray-200">
+                    <div class=" w-full overflow-x-auto ">
+                        <table class="w-full divide-y divide-gray-200">
+                            <caption>
+                                Tabel Ranking
+                            </caption>
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col"
+                                        class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
+                                        Alternatif
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
+                                        Nilai
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
+                                        Keterangan
+                                    </th>
+                                    <th scope="col"
+                                        class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
+                                        Ranking
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr v-for="(item, index, n) in topsis.rank" :key="item.id">
+                                    <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
+                                        index }}
+                                    </td>
+                                    <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
+                                        item.nilai }}
+                                    </td>
+                                    <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
+                                        item.teks }}
+                                    </td>
+                                    <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
+                                        n + 1 }}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4"
+                                        class="px-2 py-2 bg-secondary text-sm border text-center font-medium text-gray-50">
+                                        Berdasarkan Hasil Dari Perankingan
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="3"
+                                        class="px-2 py-2 bg-white text-sm border text-center font-medium text-gray-800">
+                                        Jenis Ikan Terbaik Yang Dapat Dibudidayakan berdasaran kriteria
+                                    </td>
+                                    <td class="px-2 py-2 bg-white text-sm border text-center font-medium text-gray-800">
+                                        {{ ikanRank[0] }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"
+                                        class="px-2 py-2 bg-white text-sm border text-center font-medium text-gray-800">
+                                        Dan Jenis Ikan Yang Kurang Layak untuk Dibudidayakan berdasaran kriteria
+                                    </td>
+                                    <td class="px-2 py-2 bg-white text-sm border text-center font-medium text-gray-800">
+                                        {{ ikanRank.slice(-1)[0] }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="py-4 relative box-content" v-if="alternatif.length > 2">
             <div class=" overflow-x-auto">
                 <div class="p-1.5 min-w-full inline-block align-middle">
@@ -245,9 +327,9 @@ onMounted(() => {
                                             Total
                                         </th>
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800"
-                                            v-for="(col, idx) in kriteria" :key="col" >
-                                            <span >&#8730;  {{ SumKriteria[idx].total }} = {{ SumKriteria[idx].sqrt
-                                            }}</span>
+                                            v-for="(col, idx) in kriteria" :key="col">
+                                            <span>&#8730; {{ SumKriteria[idx].total }} = {{ SumKriteria[idx].sqrt
+                                                }}</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -281,13 +363,15 @@ onMounted(() => {
                                     <tr v-for="(item, index) in alternatif" :key="item.id">
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
                                             item.nama
-                                        }}
+                                            }}
                                         </td>
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800"
                                             v-for="(col, idx) in topsis.normalizedMatrix[index]" :key="col.id">
-                                            <span> <i v-if="SumKriteria.length > 0 "> {{ item.penilaians[idx].nilai }} / {{ SumKriteria[idx].sqrt }} =</i> {{
-                                                col
-                                                }}</span>
+                                            <span> <i v-if="SumKriteria.length > 0"> {{ item.penilaians[idx].nilai }} /
+                                                    {{
+                                                    SumKriteria[idx].sqrt }} =</i> {{
+                                                        col
+                                                    }}</span>
                                         </td>
 
                                     </tr>
@@ -331,7 +415,7 @@ onMounted(() => {
                                     <tr v-for="(item, index) in alternatif" :key="item.id">
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
                                             item.nama
-                                        }}
+                                            }}
                                         </td>
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800"
                                             v-for="(col, idx) in topsis.normalizedMatrix[index]" :key="col.id">
@@ -433,7 +517,7 @@ onMounted(() => {
 
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
                                             item.nama
-                                            }}
+                                        }}
                                         </td>
                                         <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
                                             topsis.separationMeasures[idx][1] }}
@@ -450,49 +534,7 @@ onMounted(() => {
                 </div>
             </div>
 
-            <!-- Ideal Solution -->
-            <div class="mt-10 overflow-x-auto" v-if="alternatif.length > 2 && kriteria.length > 0">
-                <div class="p-1.5 min-w-full inline-block align-middle">
-                    <div class="border rounded-lg divide-y divide-gray-200">
-                        <div class=" w-full overflow-x-auto ">
-                            <table class="w-full divide-y divide-gray-200">
-                                <caption>
-                                    Tabel Ranking
-                                </caption>
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col"
-                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
-                                            Alternatif
-                                        </th>
-                                        <th scope="col"
-                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
-                                            Nilai
-                                        </th>
-                                        <th scope="col"
-                                            class="px-2 py-1 border md:px-6 md:py-3 text-nowrap text-start text-xs font-medium text-gray-700 uppercase">
-                                            Ranking
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-200">
-                                    <tr v-for="(item, index, n) in topsis.rank" :key="item.id">
-                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
-                                            index }}
-                                        </td>
-                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
-                                            item }}
-                                        </td>
-                                        <td class="px-2 py-1 text-sm border text-center font-medium text-gray-800">{{
-                                            n + 1 }}
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="py-4 relative box-content" v-else>
             <div class="max-w-7xl mx-auto sm:px-6">
