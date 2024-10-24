@@ -35,6 +35,7 @@ Route::get('/validate-user', [DashboardController::class, 'validate'])->middlewa
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified', 'role:Admin'])->name('dashboard');
 Route::get('/dashboard/orang-tua', [DashboardController::class, 'dashboardPengguna'])->middleware(['auth', 'verified', 'role:Pengguna'])->name('dashboard.pengguna');
+Route::get('/petunjuk/informasi', [DashboardController::class, 'petunjuk'])->middleware(['auth', 'verified',])->name('petunjuk');
 
 
 Route::middleware('auth')->group(function () {

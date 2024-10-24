@@ -34,8 +34,8 @@ const props = defineProps({
                         <h1
                             class="w-full mb-5 text-xs sm:text-sm md:text-base lg:text-4xl text-center font-bold !leading-[1.208] text-white z-10">
                             Selamat Datang Di
-                            <span class="text-base-light">Sistem Prediksi </span>
-                            Web-TOPSIS.
+                            <span class="text-base-light">SISTEM PENDUKUNG KEPUTUSAN PENENTUAN LAHAN UNTUK BUDIDAYA IKAN AIR TAWAR </span>
+                            MENGGUNAKAN METODE TOPSIS
                         </h1>
 
 

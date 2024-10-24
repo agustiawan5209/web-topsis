@@ -102,6 +102,14 @@ function ArrayToString() {
                     <span class="-mr-1 font-medium">Inputan User </span>
                 </NavLink>
             </li>
+            <li >
+                <NavLink :href="route('petunjuk')"
+                    :active="route().current('petunjuk')"
+                    :icon="['fas', 'circle-question']">
+
+                    <span class="-mr-1 font-medium text-xs">Petunjuk Penggunaan</span>
+                </NavLink>
+            </li>
 
 
         </ul>

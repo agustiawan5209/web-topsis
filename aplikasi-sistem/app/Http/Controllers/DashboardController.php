@@ -53,4 +53,8 @@ class DashboardController extends Controller
             'pengguna'=> User::role('Pengguna')->count(),
         ]);
     }
+
+    public function petunjuk(){
+        return Inertia::render('Petunjuk/Index');
+    }
 }
