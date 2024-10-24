@@ -25,6 +25,10 @@ const props = defineProps({
         type: Object,
         default: () => ({}),
     },
+    ikan: {
+        type: Object,
+        default: () => ({}),
+    },
     kriteria: {
         type: Object,
         default: () => ({}),
@@ -136,7 +140,7 @@ function truncateText(text) {
 
 <template>
 
-    <Head title="Dashboard" />
+    <Head title="Alternatif " />
 
     <AuthenticatedLayout>
         <template #header>
@@ -148,7 +152,7 @@ function truncateText(text) {
             <div class="-m-1.5 overflow-x-auto">
                 <div class="p-1.5 min-w-full inline-block align-middle">
                     <div class="border rounded-lg divide-y divide-gray-200">
-                        <div class="py-3 px-4" v-if="crud.tambah && data.data.length < ikan">
+                        <div class="py-3 px-4" v-if="crud.tambah && data.data.length < ikan.length">
                             <div class="relative max-w-xs">
                                 <Link :href="route('Alternatif.create')">
                                 <PrimaryButton type="button">Tambah Data</PrimaryButton>

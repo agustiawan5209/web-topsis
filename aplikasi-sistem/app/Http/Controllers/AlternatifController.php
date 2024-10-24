@@ -49,6 +49,12 @@ class AlternatifController extends Controller
             'table_colums' => array_values(array_diff($columns, ['remember_token', 'user_id', 'password', 'detail', 'email_verified_at', 'created_at', 'updated_at'])),
             'data' => Alternatif::filter(Request::only('search', 'order'))->with(['penilaians'])->paginate(10),
             'kriteria' => Kriteria::all(),
+            'ikan' => [
+                'Ikan Lele',
+                'Ikan Gurame',
+                'Ikan Patin',
+                'Ikan Mujair',
+            ]
         ]);
     }
 

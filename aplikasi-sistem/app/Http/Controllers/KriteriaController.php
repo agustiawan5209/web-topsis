@@ -26,6 +26,12 @@ class KriteriaController extends Controller
             'search' =>  Request::input('search'),
             'table_colums'=> array_values(array_diff($columns, ['remember_token','password', 'email_verified_at', 'created_at', 'updated_at'])),
             'data'=> Kriteria::filter(Request::only('search','order'))->paginate(10),
+            'can'=> [
+                'add'=> false,
+                'edit'=> false,
+                'show'=> false,
+                'delete'=> false,
+            ]
         ]);
     }
 
