@@ -63,15 +63,28 @@ class AlternatifController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Admin/Alternatif/Create', [
-            'kriteria' => Kriteria::with(['subKriteria'])->get(),
-            'ikan' => [
-                'Ikan Lele',
-                'Ikan Gurame',
-                'Ikan Patin',
-                'Ikan Mujair',
-            ]
-        ]);
+        if (Auth::user()->hasRole('Admin')) {
+            return Inertia::render('Admin/Alternatif/Create', [
+                'kriteria' => Kriteria::with(['subKriteria'])->get(),
+                'ikan' => [
+                    'Ikan Lele',
+                    'Ikan Gurame',
+                    'Ikan Patin',
+                    'Ikan Mujair',
+                ]
+            ]);
+        } else {
+            return Inertia::render('Admin/Alternatif/Form', [
+                'kriteria' => Kriteria::with(['subKriteria'])->get(),
+                'ikan' => [
+                    'Ikan Lele',
+                    'Ikan Gurame',
+                    'Ikan Patin',
+                    'Ikan Mujair',
+                ],
+                'alternatif'=> Alternatif::where('user_id', '=',1)->with(['penilaians'])->get(),
+            ]);
+        }
     }
 
     /**
@@ -103,6 +116,31 @@ class AlternatifController extends Controller
                         'nama' =>  $element['nama'],
                     ]);
                 }
+            }
+        }
+        return redirect()->route('Alternatif.index')->with('message', 'Data Alternatif Berhasil Di Tambah!!');
+    }
+
+        /**
+     * Store a newly created resource in storage.
+     */
+    public function storeForm(StoreAlternatifRequest $request)
+    {
+        $alternatif = Alternatif::create([
+            'nama' => $request->nama,
+            'user_id' => Auth::user()->id,
+            'detail' => null,
+        ]);
+
+        for ($i = 0; $i < count($request->penilaian); $i++) {
+            $element = $request->penilaian[$i];
+            if (isset($element)) {
+                Penilaian::create([
+                    'alternatif_id' => $alternatif->id,
+                    'kriteria_id' =>  $element['kriteria'],
+                    'nilai' =>  $element['nilai'],
+                    'nama' =>  $element['nama'],
+                ]);
             }
         }
         return redirect()->route('Alternatif.index')->with('message', 'Data Alternatif Berhasil Di Tambah!!');

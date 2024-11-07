@@ -76,6 +76,7 @@ Route::middleware(['auth', 'verified', 'role:Admin|Pengguna'])->group(function (
             Route::get('/ubah-alternatif', 'edit')->name('edit');
             Route::get('/detail-alternatif', 'show')->name('show');
             Route::post('/store-alternatif', 'store')->name('store');
+            Route::post('/store-alternatif', 'storeForm')->name('store.form');
             Route::put('/update-alternatif', 'update')->name('update');
             Route::delete('/destroy-alternatif', 'destroy')->name('destroy');
         });

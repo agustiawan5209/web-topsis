@@ -28,7 +28,7 @@ class KriteriaController extends Controller
             'data'=> Kriteria::filter(Request::only('search','order'))->paginate(10),
             'can'=> [
                 'add'=> false,
-                'edit'=> false,
+                'edit'=> true,
                 'show'=> false,
                 'delete'=> false,
             ]
