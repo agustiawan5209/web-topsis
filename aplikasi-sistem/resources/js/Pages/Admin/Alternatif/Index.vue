@@ -35,10 +35,10 @@ const props = defineProps({
     },
 })
 const crud = ref({
-    tambah: true,
-    edit: true,
-    show: true,
-    delete: false,
+    tambah: props.can.add,
+    edit: props.can.edit,
+    show: props.can.show,
+    delete: props.can.delete,
 
 })
 

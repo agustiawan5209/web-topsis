@@ -54,6 +54,12 @@ class AlternatifController extends Controller
                 'Ikan Gurame',
                 'Ikan Patin',
                 'Ikan Mujair',
+            ],
+            'can' => [
+                'add' =>  true,
+                'edit' =>  true,
+                'show' =>  true,
+                'delete' =>  true,
             ]
         ]);
     }
