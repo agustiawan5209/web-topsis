@@ -151,9 +151,9 @@ class TopsisController extends Controller
         foreach ($relativeCloseness as $i => $closeness) {
             if ($closeness >= 0.8) {
                 $text = "Sangat Layak";
-            } else if ($closeness >= 0.6 && $closeness < 0.8) {
+            } else if ($closeness >= 0.5 && $closeness < 0.8) {
                 $text = "Layak";
-            } else if ($closeness < 0.6) {
+            } else if ($closeness < 0.5) {
                 $text = "Tidak Layak";
             }
             $rankedAlternatives[$this->alternatives[$i]['nama']] = [
