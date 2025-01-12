@@ -109,7 +109,7 @@ function submit() {
                         <div class="col-span-1 " v-for="(item, index) in kriteria" :key="item.id">
                             <InputLabel for="penilaian" :value="item.nama"
                                 class="text-xs sm:text-sm leading-4 tracking-wider" />
-                            <select name="penilaian"  id="penilaian" class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs" v-model="BobotPenilaian[index]" :disabled="true">
+                            <select name="penilaian"  id="penilaian" class="w-full border-red-300 focus:border-red-500 focus:ring-red-500 rounded-md shadow-sm text-xs sm:text-base placeholder:text-xs" v-model="BobotPenilaian[index]">
                                 <option value="">--Pilih---</option>
                                 <option v-for="col in item.sub_kriteria" :value="{kriteria: item.id, nama:col.nama, nilai: col.bobot}"> {{ col.nama }} </option>
                             </select>

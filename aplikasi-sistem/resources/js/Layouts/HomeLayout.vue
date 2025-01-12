@@ -54,15 +54,11 @@ const Navigate = ref(false);
         <transition name="fade-left">
             <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto shadow-md border-b" v-if="Navigate">
                 <div class="text-sm lg:flex-grow">
-                    <a href="#" class="px-6 block mt-4  lg:inline-block font-medium lg:mt-0 text-primary hover:text-gray-700 mr-4">
-                        Pasien & Pengunjung
-                    </a>
-                    <a href="#" class="px-6 block mt-4 lg:inline-block font-medium lg:mt-0 text-primary hover:text-gray-700 mr-4">
-                        Darurat Hubungi +62-85255814561
-                    </a>
-                    <a href="#" class="px-6 block mt-4 lg:inline-block font-medium lg:mt-0 text-primary hover:text-gray-700 mr-4">
-                        Informasi
-                    </a>
+                    <Link :href="route('home')" :class="route().current('home') ? 'bg-primary text-white hover:text-gray-200' : 'text-primary hover:text-gray-700 border-transparent'"
+                    class="p-3 block mt-4 lg:inline-block font-medium lg:mt-0 border  rounded-lg ">
+                    <font-awesome-icon :icon="['fas','home']"/>
+                Beranda
+                </Link>
                 </div>
                 <div class="flex flex-wrap justify-between gap-4 p-6 border-t">
                     <Link :href="route('login')"
